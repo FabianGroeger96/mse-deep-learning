@@ -1,0 +1,48 @@
+\documentclass[onecolumn]{article}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage[a4paper]{geometry}
+\usepackage{datetime}
+\usepackage[margin=2em, font=small,labelfont=it]{caption}
+\usepackage{graphicx}
+\usepackage{mathpazo} % use palatino
+\usepackage[scaled]{helvet} % helvetica
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{subfigure}
+\usepackage{enumitem} % alphabetic enumeration
+% Letterspacing macros
+\newcommand{\spacecaps}[1]{\textls[200]{\MakeUppercase{#1}}}
+\newcommand{\spacesc}[1]{\textls[50]{\textsc{\MakeLowercase{#1}}}}
+
+\title{\spacecaps{Lab report: SW01 }\\ \normalsize \spacesc{TSM\_DeLearn} }
+
+\author{Andrin Bürli\thanks{andrin.buerli@hslu.ch}, Nursinem Dere\thanks{nursinem.dere@stud.hslu.ch}, Fabian Gröger\thanks{fabian.groeger@hslu.ch}\\Hochschule Luzern}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Exercise 5: Review Questions}
+
+\subsection{Supervised vs. unsupervised systems}
+\begin{enumerate}[label=(\alph*)]
+	\item \textbf{supervised}; data is labelled as spam/not spam, and the goal is to predict.
+	\item \textbf{unsupervised}; the goal of the task is to group the news articles and find some useful groupings.
+	\item \textbf{unsupervised}; group the data based on the features, and the goal is to uncover patterns.
+	\item \textbf{supervised}; data is annotated (glaucoma or not), and the goal is to predict.
+\end{enumerate}
+
+\subsection{Classification vs. regression systems}
+Yes, it is possible to transform a regression problem into a classification problem. One of the straight forward ways is to group/bin the continuous variable to get a discrete one. The benefit is that this creates more data for a single target variable. However, the disadvantage is that the target variable isn't as accurate as before. 
+
+\subsection{Perceptron}
+\begin{enumerate}[label=(\alph*)]
+	\item It can be used for binary classification and regression problems.
+	\item It will converge for linearly separable data.
+	\item It can only train models with a single hidden layer.
+	\item The perceptron can not model an XOR gate because this can not be modelled by a linear function, only with a non-linear one.
+\end{enumerate}
+
+\end{document}
+
