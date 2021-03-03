@@ -2,7 +2,6 @@
 \usepackage{url}
 \usepackage{algorithmic}
 \usepackage[a4paper]{geometry}
-\usepackage{enumitem}
 \usepackage{datetime}
 \usepackage[margin=2em, font=small,labelfont=it]{caption}
 \usepackage{graphicx}
@@ -11,6 +10,7 @@
 \usepackage{microtype}
 \usepackage{amsmath}
 \usepackage{subfigure}
+\usepackage{enumitem} % alphabetic enumeration
 % Letterspacing macros
 \newcommand{\spacecaps}[1]{\textls[200]{\MakeUppercase{#1}}}
 \newcommand{\spacesc}[1]{\textls[50]{\textsc{\MakeLowercase{#1}}}}
@@ -23,7 +23,6 @@
 \begin{document}
 \maketitle
 
-
 \section{Exercise 5: Review Questions}
 \subsection{Supervised vs. unsupervised systems}
 
@@ -35,8 +34,7 @@
 \end{enumerate}
 
 \subsection{Classification vs. regression systems}
-In order to transform a regression problem into a classification problem one could quantize the target variable into a discrete space. When doing this, we get more data for a single quantized class, as the samples with a target value in the same bin will get summarized to the same true quantized label. On the downside one losses accuarcy, depending on the size of the used quantization bins.
-
+Yes, it is possible to transform a regression problem into a classification problem. One of the straight forward ways is to group/bin the continuous variable to get a discrete one. The benefit is that this creates more data for a single target variable. However, the disadvantage is that the target variable isn't as accurate as before. 
 
 \subsection{Perceptron}
 \begin{enumerate}[label=(\alph*)]
