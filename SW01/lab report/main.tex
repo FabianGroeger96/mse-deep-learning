@@ -24,13 +24,13 @@
 \maketitle
 
 \section{Exercise 5: Review Questions}
-
 \subsection{Supervised vs. unsupervised systems}
+
 \begin{enumerate}[label=(\alph*)]
-	\item \textbf{supervised}; data is labelled as spam/not spam, and the goal is to predict.
-	\item \textbf{unsupervised}; the goal of the task is to group the news articles and find some useful groupings.
-	\item \textbf{unsupervised}; group the data based on the features, and the goal is to uncover patterns.
-	\item \textbf{supervised}; data is annotated (glaucoma or not), and the goal is to predict.
+	\item Supervised learning: Weather or not an email is spam is a specific and given label. The text / metadata of the email can be considered as features.
+	\item Unsupervised learning: We do not have any given labels, but rather want to find some structure / clusters in the dataset.
+	\item Unsupervised learning: Again no given labels, we want to find structure in terms of segments / clusters.
+	\item Supervised learning: We want to classify the patient to give him a diagnose, on basis on some given labled dataset.
 \end{enumerate}
 
 \subsection{Classification vs. regression systems}
@@ -38,10 +38,11 @@ Yes, it is possible to transform a regression problem into a classification prob
 
 \subsection{Perceptron}
 \begin{enumerate}[label=(\alph*)]
-	\item It can be used for binary classification and regression problems.
-	\item It will converge for linearly separable data.
-	\item It can only train models with a single hidden layer.
-	\item The perceptron can not model an XOR gate because this can not be modelled by a linear function, only with a non-linear one.
+\item  The perceptron can be used for both classification and linear regression.
+\item In case of classification if the problem (dataset) is linearly seperatable it will converge.
+\item Models with only a single (no hidden) layer of perceptrons.
+\item In case of the XOR problem the Perceptron will not converge, because there exists no linear function which seperates the two target classes.
+
 \end{enumerate}
 
 \end{document}
