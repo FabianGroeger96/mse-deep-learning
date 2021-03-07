@@ -98,7 +98,7 @@ Now in order to find the boundaries we let the variable $z$ run to infinity in b
 	&=-2\sigma(x)(\sigma(x)-1)^2(3\sigma(x)-1) \\
 	&=\sigma(x)(\sigma(x)-1)^2(2-6\sigma(x)) 
 	\\ \\
-	\sigma(x)&\to(0,\infty) \\
+	\sigma(x)&\to(0, 1) \\
 	(\sigma(x)-1)^2&\to(0,1) \\
 	(2-6\sigma(x)) &\to \left\{\begin{array}{lr}
 		(0, 2), & \text{for } x < -ln(2) \\
@@ -106,11 +106,17 @@ Now in order to find the boundaries we let the variable $z$ run to infinity in b
 	\end{array}\right\} \to \text{hence SE is non convex}
 \end{aligned}
 \]\\
-If we start at some initial point $x_0<-ln(2)$ we will have a gradient that is larger than zero. Hence the gradient update step $x_{t}\leftarrow x_{t-1}-\frac{d}{dx}f(x_{t-1})$ will lead the algorithm into the wrong direction. That direction will still minimize the squared error $c_1$, but it will do so by pushing the output of the function $\sigma$ towards $0$ rather than towards the required output of $1$.
+If we start at some initial point $x_0 << 0$ we will have a gradient that is very close to zero because
+
+\[
+\lim_{x\to-\infty}{\frac{d}{d x} SE(x)}=\lim_{x\to-\infty}{-2\sigma(x)(\sigma(x)-1)^2 }={-2\sigma(-\infty)(\sigma(-\infty)-1)^2 }={-2\cdot 0(0-1)^2 }=0
+\]
+
+Hence the gradient update step $x_{t}\leftarrow x_{t-1}-\frac{d}{dx}SE(x_{t-1})$ will push the algorithm only very little into the correct direction. That direction will still minimize the squared error $c_1$, but it will do so very slowly. This phenomenon is also known as the vanishing gradient problem.
 \begin{figure}[hbt!]
 	\centering
-	\includegraphics[width=.6\linewidth]{taskf.png}
-	\caption{The squared error $c_1$ and its derivatives, as well as the logistic function $\sigma$ and a vertical line at the crucial threshold at which it is decided weather or not SGD will converge to the correct solution.}
+	\includegraphics[width=.5\linewidth]{taskf.png}
+	\caption{The squared error $c_1$ with its derivatives and a vertical line at the threshold where the second derivative enters the negative range.}
 \end{figure}
 
 \subsection{Task (g)}
@@ -124,7 +130,7 @@ If we start at some initial point $x_0<-ln(2)$ we will have a gradient that is l
 	\frac{\partial^2}{\partial w^2} CE(x) &= \frac{\partial}{\partial w} x(y-\sigma(wx)) = \sigma^\prime(wx) x^2 \\
 	&= \sigma(wx)(1-\sigma(wx) x^2 \\
 	\\ \\
-	\sigma(wx)&\to(0,\infty) \\
+	\sigma(wx)&\to(0,1) \\
 	(1-\sigma(wx))^2&\to(0,1) \\
 	x^2 &\to (0, \infty) \text{ for } x\neq0 \to \text{hence } CE(x) \text{ is convex}
 \end{aligned}
