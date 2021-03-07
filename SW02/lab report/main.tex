@@ -9,12 +9,14 @@
 \usepackage[scaled]{helvet} % helvetica
 \usepackage{microtype}
 \usepackage{amsmath}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
 \usepackage{subfigure}
 % Letterspacing macros
 \newcommand{\spacecaps}[1]{\textls[200]{\MakeUppercase{#1}}}
 \newcommand{\spacesc}[1]{\textls[50]{\textsc{\MakeLowercase{#1}}}}
 
-\title{\spacecaps{Lab report: SW01 }\\ \normalsize \spacesc{TSM\_DeLearn} }
+\title{\spacecaps{Lab report: SW02}\\ \normalsize \spacesc{TSM\_DeLearn} }
 
 \author{Andrin Bürli\thanks{andrin.buerli@hslu.ch}, Nursinem Dere\thanks{nursinem.dere@stud.hslu.ch}, Fabian Gröger\thanks{fabian.groeger@hslu.ch}\\Hochschule Luzern}
 \date{\today}
@@ -22,38 +24,132 @@
 \begin{document}
 \maketitle
 
-\begin{abstract}
-Abstract goes here
-\end{abstract}
+\section{Exercise 2}
 
-\section{Introduction}
-Introduction here.
+\subsection{Task (a)}
 
-\begin{align}
-	\mathcal{L} = \frac{1}{n}\sum_n^{i=1} (Y_i - \hat{Y}_i)^2
-\end{align}
+\[
+\begin{aligned}
+	\sigma(z)&=\frac{1}{1+e^{-z}}\\
+	\frac{d}{dz} \sigma(z) &= \frac{d}{dz}(1+e^{-z})^-1=-(1+e^{-z})^{-2}(-e^{-z})=\frac{e^{-z}}{(1+e^{-z})^{2}}
+\end{aligned}
+\]
 
-\begin{figure}[t]
-\centering
-    \includegraphics[width=.3\linewidth]{fig/flat.png}
-\caption{\label{fig:demo-bad}
-Caption}
+\subsection{Task (b)}
+
+\[
+\begin{aligned}
+	\sigma(z)&=\frac{1}{1+e^{-z}}
+	\frac{d}{dz} \sigma(z) &= \frac{e^{-z}}{(1+e^{-z})^{2}}=\frac{1+e^{-z}-1}{(1+e^{-z})^{2}}=\sigma(z)^2(1+e^{-z}-1)\\
+	&=\sigma(z)^2(\sigma(z)^{-1}-1)=\sigma(z)(1-\sigma(z))
+\end{aligned}
+\]
+
+\subsection{Task (c)}
+
+\[
+\begin{aligned}
+	\zeta(z)&=-\text{log}(\sigma(-z))=-\text{log}\left(\frac{1}{1+e^z}\right)\\
+	\\
+	\frac{d}{dz} \zeta(z) &= -\frac{1}{\sigma(-z)} \sigma(-z)(1-\sigma(-z)) = (1-\sigma(-z)) \\
+	\\
+	\frac{d^2}{dz^2} \zeta(z) &=\frac{d}{dz} (1-\sigma(-z))=-(-\sigma(-z)(1-\sigma(-z)))\\
+	&=\sigma(-z)(1-\sigma(-z))
+\end{aligned}
+\]
+Now in order to find the boundaries we let the variable $z$ run to infinity in both directions
+
+\[
+\begin{aligned}
+	\lim_{z\to+\infty}\zeta(z)&=-\text{log}\left(\frac{1}{1+e^\infty}\right)
+	=-\text{log}\left(\frac{1}{\infty}\right)
+	=-\text{log}\left(0\right)=\infty \\
+	\lim_{z\to-\infty}\zeta(z)&=-\text{log}\left(\frac{1}{1+e^{-\infty}}\right)
+	=-\text{log}\left(\frac{1}{1+0}\right)
+	=-\text{log}\left(1\right)=0
+\end{aligned}
+\]
+\begin{figure}[hbt!]
+	\centering
+	\includegraphics[width=.6\linewidth]{taskc.png}
+	\caption{The $\zeta(z)$ function and its derivatives}
 \end{figure}
 
-\begin{figure}[t]
-\centering
-\subfigure[Standard rendering]{\centering
-    \includegraphics[width=.3\linewidth]{fig/flat.png}
-        \label{fig:demo-standard}}
-\subfigure[Fancy rendering]{\centering
-    \includegraphics[width=.3\linewidth]{fig/smooth.png}
-        \label{fig:demo-fancy}}
-\caption{\label{fig:demo} 
-Caption}
+\subsection{Task (d)}
+\begin{figure}[hbt!]
+	\centering
+	\includegraphics[width=.6\linewidth]{taskd.png}
+	\caption{The logistic / sigmoid function $\sigma(x)=\frac{1}{1+e^{-x}}$ function and its first derivative}
 \end{figure}
 
-\nocite{*}
-\bibliographystyle{plain}
-\bibliography{references}
+\subsection{Task (f)}
+\label{taskf}
+\[
+\begin{aligned}
+	c_1(x)=SE(x) &= (\sigma(x)-1)^2 \\
+	\\
+	\frac{d}{d x} SE(x)&= 2(\sigma(x)-1)\sigma(x)(1-\sigma(x))=2\sigma(x)(\sigma(x)-1) (1-\sigma(x)) \\
+	&=2\sigma(x)(\sigma(x)-\sigma(x)^2-1+\sigma(x))=-2\sigma(x)(\sigma(x)^2-2\sigma(x)+1) \\
+	&=-2\sigma(x)(\sigma(x)-1)^2 \\
+	\\
+	\frac{d^2}{d x^2} SE(x)&=-2\sigma(x)(1-\sigma(x))(\sigma(x)-1)^2-2\sigma(x)2(\sigma(x)-1)\sigma(x)(1-\sigma(x))\\
+	&=-2\sigma(x)(1-\sigma(x))((\sigma(x)-1)^2+2\sigma(x)(\sigma(x)-1)) \\ &=-2\sigma(x)(1-\sigma(x))(\sigma(x)-1)(\sigma(x)-1+2\sigma(x)) \\
+	&=-2\sigma(x)(\sigma(x)-1)^2(3\sigma(x)-1) \\
+	&=\sigma(x)(\sigma(x)-1)^2(2-6\sigma(x)) 
+	\\ \\
+	\sigma(x)&\to(0,\infty) \\
+	(\sigma(x)-1)^2&\to(0,1) \\
+	(2-6\sigma(x)) &\to \left\{\begin{array}{lr}
+		(0, 2), & \text{for } x < -ln(2) \\
+		(-4, 0], & \text{for } x >= -ln(2)
+	\end{array}\right\} \to \text{hence SE is non convex}
+\end{aligned}
+\]\\
+If we start at some initial point $x_0<-ln(2)$ we will have a gradient that is larger than zero. Hence the gradient update step $x_{t}\leftarrow x_{t-1}-\frac{d}{dx}f(x_{t-1})$ will lead the algorithm into the wrong direction. That direction will still minimize the squared error $c_1$, but it will do so by pushing the output of the function $\sigma$ towards $0$ rather than towards the required output of $1$.
+\begin{figure}[hbt!]
+	\centering
+	\includegraphics[width=.6\linewidth]{taskf.png}
+	\caption{The squared error $c_1$ and its derivatives, as well as the logistic function $\sigma$ and a vertical line at the crucial threshold at which it is decided weather or not SGD will converge to the correct solution.}
+\end{figure}
+
+\subsection{Task (g)}
+\[
+\begin{aligned}
+	c_{2}(x)=CE(x)&=-(y \log (\sigma(w \cdot x))+(1-y) \log (1-\sigma(w \cdot x))) \\ \\
+	\frac{\partial}{\partial w} CE(x)&=\frac{\partial}{\partial w}-\left(y-\log \sigma(wx)+(1-y) \log \left(1-\sigma(wx)\right)\right)=-\left(\frac{-y}{\sigma(wx)}\sigma(wx)^\prime x+\frac{1-y}{1-\sigma(wx)}\sigma(wx)^\prime x\right) \\
+	&=-\sigma(wx)^\prime x\left(\frac{-y}{\sigma(wx)}+\frac{1-y}{1-\sigma(wx)}\right)=-\sigma(wx)^\prime x\left(\frac{-y(1-\sigma(wx))+(1-y)\sigma(wx)}{\sigma(wx)^\prime}\right) \\
+	&=-x(\sigma(wx)-y)=x(y-\sigma(wx)) \\
+	\\
+	\frac{\partial^2}{\partial w^2} CE(x) &= \frac{\partial}{\partial w} x(y-\sigma(wx)) = \sigma^\prime(wx) x^2 \\
+	&= \sigma(wx)(1-\sigma(wx) x^2 \\
+	\\ \\
+	\sigma(wx)&\to(0,\infty) \\
+	(1-\sigma(wx))^2&\to(0,1) \\
+	x^2 &\to (0, \infty) \text{ for } x\neq0 \to \text{hence } CE(x) \text{ is convex}
+\end{aligned}
+\]
+
+\section{Exercise 4}
+\subsection{Task a}
+Without normalisation the weights of the values need to be initialised differently to compensate for the sacale of the different features. Otherwise the features with large magnitudes will dominate. Hence the Algorithm has first to learn how to properly handle the scales before learning the actual importance of the features for the task at hand.
+
+\subsection{Task b}
+Thanks to the formalisation of learning as an optimization problem, we can use already developed algorithms to optimize the given parameters.
+
+\subsection{Task c}
+Gradient descent can be applied as soon as a problem can be defined as the optimization of a continuous and differentiable function. It is a local algorithm and will only lead to a unique solution if the given function is also convex ($f^{\prime\prime}(x)>0, x \in {\rm I\!R}^n$). If the function is not convex, the GD algorithm can easily get caught up in a local maxima as the gradient will converge to $0$ at such points.
+
+\subsection{Task d}
+Because the SE with respect to the sigmoid function is not convex as shown in Exercise \ref{taskf}.
+
+\subsection{Task e}
+If the learning rate is too large, the cost function will not converge but rather diverge.
+
+\subsection{Task f}
+If that happens, the choosen parameters overfit the training data and do not well generalize to yet unseen datapoints.
+
+\subsection{Task g}
+It is harder for the algorithm to reach small values on the training data, as it has to account for more variance. But it is easier to reach small values on the test data, because in order to converge on the training set the parameters had to become more general in order to account for the additional variance in the larger training set.
+
 \end{document}
 
