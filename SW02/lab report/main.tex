@@ -52,7 +52,7 @@
 \begin{aligned}
 	\zeta(z)&=-\text{log}(\sigma(-z))=-\text{log}\left(\frac{1}{1+e^z}\right)\\
 	\\
-	\frac{d}{dz} \zeta(z) &= -\frac{1}{\sigma(-z)} \sigma(-z)(1-\sigma(-z)) = (1-\sigma(-z)) \\
+	\frac{d}{dz} \zeta(z) &= -\frac{1}{\sigma(-z)} \sigma(-z)(1-\sigma(-z))\cdot (-1) = (1-\sigma(-z)) \\
 	\\
 	\frac{d^2}{dz^2} \zeta(z) &=\frac{d}{dz} (1-\sigma(-z))=-(-\sigma(-z)(1-\sigma(-z)))\\
 	&=\sigma(-z)(1-\sigma(-z))
@@ -62,12 +62,12 @@ Now in order to find the boundaries we let the variable $z$ run to infinity in b
 
 \[
 \begin{aligned}
-	\lim_{z\to+\infty}\zeta(z)&=-\text{log}\left(\frac{1}{1+e^\infty}\right)
-	=-\text{log}\left(\frac{1}{\infty}\right)
-	=-\text{log}\left(0\right)=\infty \\
-	\lim_{z\to-\infty}\zeta(z)&=-\text{log}\left(\frac{1}{1+e^{-\infty}}\right)
-	=-\text{log}\left(\frac{1}{1+0}\right)
-	=-\text{log}\left(1\right)=0
+	\lim_{z\to+\infty}\zeta(z)&=	\lim_{z\to+\infty}-\text{log}\left(\frac{1}{1+e^\infty}\right)
+	=\lim_{z\to+\infty}-\text{log}\left(\frac{1}{\infty}\right)
+	=\lim_{z\to+\infty}-\text{log}\left(0\right)=\infty \\
+	\lim_{z\to-\infty}\zeta(z)&=\lim_{z\to-\infty}-\text{log}\left(\frac{1}{1+e^{-\infty}}\right)
+	=\lim_{z\to-\infty}-\text{log}\left(\frac{1}{1+0}\right)
+	=\lim_{z\to-\infty}-\text{log}\left(1\right)=0
 \end{aligned}
 \]
 \begin{figure}[hbt!]
@@ -109,7 +109,7 @@ Now in order to find the boundaries we let the variable $z$ run to infinity in b
 If we start at some initial point $x_0 << 0$ we will have a gradient that is very close to zero because
 
 \[
-\lim_{x\to-\infty}{\frac{d}{d x} SE(x)}=\lim_{x\to-\infty}{-2\sigma(x)(\sigma(x)-1)^2 }={-2\sigma(-\infty)(\sigma(-\infty)-1)^2 }={-2\cdot 0(0-1)^2 }=0
+\lim_{x\to-\infty}{\frac{d}{d x} SE(x)}=\lim_{x\to-\infty}{-2\sigma(x)(\sigma(x)-1)^2 }=\lim_{x\to-\infty}{-2\sigma(-\infty)(\sigma(-\infty)-1)^2 }=\lim_{x\to-\infty}{-2\cdot 0(0-1)^2 }=0
 \]
 
 Hence the gradient update step $x_{t}\leftarrow x_{t-1}-\frac{d}{dx}SE(x_{t-1})$ will push the algorithm only very little into the correct direction. That direction will still minimize the squared error $c_1$, but it will do so very slowly. This phenomenon is also known as the vanishing gradient problem.
