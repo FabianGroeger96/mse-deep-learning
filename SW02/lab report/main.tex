@@ -1,0 +1,62 @@
+\documentclass[onecolumn]{article}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage[a4paper]{geometry}
+\usepackage{datetime}
+\usepackage[margin=2em, font=small,labelfont=it]{caption}
+\usepackage{graphicx}
+\usepackage{mathpazo} % use palatino
+\usepackage[scaled]{helvet} % helvetica
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{subfigure}
+\usepackage{amssymb}
+\usepackage{enumitem} % alphabetic enumeration
+% Letterspacing macros
+\newcommand{\spacecaps}[1]{\textls[200]{\MakeUppercase{#1}}}
+\newcommand{\spacesc}[1]{\textls[50]{\textsc{\MakeLowercase{#1}}}}
+
+\title{\spacecaps{Lab report: SW02 }\\ \normalsize \spacesc{TSM\_DeLearn} }
+
+\author{Andrin Bürli\thanks{andrin.buerli@hslu.ch}, Nursinem Dere\thanks{nursinem.dere@stud.hslu.ch}, Fabian Gröger\thanks{fabian.groeger@hslu.ch}\\Hochschule Luzern}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Exercise 2: Sigmoid Function}
+\subsection{Task (a), (b)}
+\begin{align*}
+	\sigma(z) &= \frac{1}{1+e^{-z}} \\
+	\sigma\prime(z) &= \frac{d}{dz} \Bigg[ \frac{1}{1+e^{-z}} \Bigg] = \frac{d}{dz} \Bigg[ (1+e^{-z})^{-1} \Bigg] \\
+	&= -1 (1+e^{-z})^{-2} \cdot \frac{d}{dz} \Big[ e^{-z} \Big] \\
+	&= -1 (1+e^{-z})^{-2} \cdot e^{-z} \cdot \frac{d}{dz} \Big[ -z \Big] \\
+	&= -1 (1+e^{-z})^{-2} \cdot e^{-z} \cdot -1 \\
+	&= (1+e^{-z})^{-2} \cdot e^{-z} \\
+	&= \frac{e^{-z}}{(1+e^{-z}) \cdot (1+e^{-z})} \\
+	&= \frac{1}{(1+e^{-z})} \cdot \frac{e^{-z}}{(1+e^{-z})} && /+1 -1 \\
+	&= \frac{1}{(1+e^{-z})} \cdot \frac{e^{-z} +1 -1}{(1+e^{-z})} \\
+	&= \frac{1}{(1+e^{-z})} \cdot \Bigg(\frac{1+ e^{-z}}{(1+e^{-z})} - \frac{1}{(1+e^{-z})}\Bigg) \\
+	&= \frac{1}{(1+e^{-z})} \cdot \Bigg(1 - \frac{1}{(1+e^{-z})}\Bigg) \\
+	&= \sigma(z) \cdot (1 - \sigma(z)) && \square
+\end{align*}
+
+\subsection{Task (c)}
+\begin{align*}
+	\zeta(z) &= -\log(\sigma(-z)) = -\log\Bigg(\frac{1}{1+e^{-z}}\Bigg) \\
+	\zeta\prime(z) &= - \frac{d}{dz} \log (\sigma(-z)) = - \frac{1}{\sigma(-z)} \cdot \sigma(-z) \cdot (1 - \sigma(-z)) = - (1 - \sigma(-z)) \\
+	\zeta\prime\prime(z) &= - \frac{d}{dz} (1 - \sigma(-z)) = - \Big[- \sigma(-z) \cdot (1 - \sigma(-z)) \Big] = \sigma(-z) \cdot (1 - \sigma(-z))
+\end{align*}
+
+\section{Exercise 4: Review Question}
+\begin{enumerate}[label=(\alph*)]
+	\item It is beneficial because the input features are scaled similarly and thus build a loss landscape that is easier to optimize. Otherwise, the model additionally needs to learn to cope with the different feature scales, which leads to longer training and poorer performance.
+	\item In machine learning, the learning problem can be formulated as an optimization problem, where the goal is to find the best fitting parameters. Thus optimization algorithms can be used.
+	\item Gradient descent can be applied to all problems where a gradient with respect to the parameter to optimize can be computed. It will lead to a unique solution when the problem is convex. Thus the local minimum is also the global minima.
+	\item The MSE cost with sigmoid as activation function is not convex for classification problems. This can lead to bad local minima.
+	\item Then the optimization fails to converge to a minimum and oscillates around it.
+	\item This phenomenon is called overfitting, where the model learns the parameter to fit the training dataset optimally. This will lead to poor generalization, and thus the training error will decrease whilst the testing increases.
+	\item It is harder to reach a small train error because the dataset incorporates more variance. But it is easier to have a smaller generalization error when having a larger dataset since it is assumed that the dataset gets more similar to the true underlying distribution.
+\end{enumerate}
+\end{document}
+
