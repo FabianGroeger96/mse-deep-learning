@@ -95,14 +95,14 @@ Now in order to find the boundaries we let the variable $z$ run to infinity in b
 	\\
 	\frac{d^2}{d x^2} SE(x)&=-2\sigma(x)(1-\sigma(x))(\sigma(x)-1)^2-2\sigma(x)2(\sigma(x)-1)\sigma(x)(1-\sigma(x))\\
 	&=-2\sigma(x)(1-\sigma(x))((\sigma(x)-1)^2+2\sigma(x)(\sigma(x)-1)) \\ &=-2\sigma(x)(1-\sigma(x))(\sigma(x)-1)(\sigma(x)-1+2\sigma(x)) \\
-	&=-2\sigma(x)(\sigma(x)-1)^2(3\sigma(x)-1) \\
-	&=\sigma(x)(\sigma(x)-1)^2(2-6\sigma(x)) 
+	&=2\sigma(x)(\sigma(x)-1)^2(3\sigma(x)-1) \\
+	&=\sigma(x)(\sigma(x)-1)^2(6\sigma(x)-2) 
 	\\ \\
 	\sigma(x)&\to(0, 1) \\
 	(\sigma(x)-1)^2&\to(0,1) \\
-	(2-6\sigma(x)) &\to \left\{\begin{array}{lr}
-		(0, 2), & \text{for } x < -ln(2) \\
-		(-4, 0], & \text{for } x >= -ln(2)
+	(6\sigma(x)-2) &\to \left\{\begin{array}{lr}
+		[0, -2), & \text{for } x \leq -\text{ln}(2) \\
+		(0, 4), & \text{for } x > -\text{ln}(2)
 	\end{array}\right\} \to \text{hence SE is non convex}
 \end{aligned}
 \]\\
@@ -116,18 +116,18 @@ Hence the gradient update step $x_{t}\leftarrow x_{t-1}-\frac{d}{dx}SE(x_{t-1})$
 \begin{figure}[hbt!]
 	\centering
 	\includegraphics[width=.5\linewidth]{taskf.png}
-	\caption{The squared error $c_1$ with its derivatives and a vertical line at the threshold where the second derivative enters the negative range.}
+	\caption{The squared error $c_1$ with its derivatives and a vertical line at the threshold where the second derivative enters the positive range.}
 \end{figure}
 
 \subsection{Task (g)}
 \[
 \begin{aligned}
 	c_{2}(x)=CE(x)&=-(y \log (\sigma(w \cdot x))+(1-y) \log (1-\sigma(w \cdot x))) \\ \\
-	\frac{\partial}{\partial w} CE(x)&=\frac{\partial}{\partial w}-\left(y-\log \sigma(wx)+(1-y) \log \left(1-\sigma(wx)\right)\right)=-\left(\frac{-y}{\sigma(wx)}\sigma(wx)^\prime x+\frac{1-y}{1-\sigma(wx)}\sigma(wx)^\prime x\right) \\
-	&=-\sigma(wx)^\prime x\left(\frac{-y}{\sigma(wx)}+\frac{1-y}{1-\sigma(wx)}\right)=-\sigma(wx)^\prime x\left(\frac{-y(1-\sigma(wx))+(1-y)\sigma(wx)}{\sigma(wx)^\prime}\right) \\
-	&=-x(\sigma(wx)-y)=x(y-\sigma(wx)) \\
+	\frac{\partial}{\partial w} CE(x)&=\frac{\partial}{\partial w}-\left(y\log \sigma(wx)+(1-y) \log \left(1-\sigma(wx)\right)\right)=-\left(\frac{y}{\sigma(wx)}\sigma(wx)^\prime x-\frac{1-y}{1-\sigma(wx)}\sigma(wx)^\prime x\right) \\
+	&=-\sigma(wx)^\prime x\left(\frac{y}{\sigma(wx)}-\frac{1-y}{1-\sigma(wx)}\right)=-\sigma(wx)^\prime x\left(\frac{y(1-\sigma(wx))-(1-y)\sigma(wx)}{\sigma(wx)^\prime}\right) \\
+	&=x(\sigma(wx)-y) \\
 	\\
-	\frac{\partial^2}{\partial w^2} CE(x) &= \frac{\partial}{\partial w} x(y-\sigma(wx)) = \sigma^\prime(wx) x^2 \\
+	\frac{\partial^2}{\partial w^2} CE(x) &= \frac{\partial}{\partial w} x(\sigma(wx)-y) = \sigma^\prime(wx) x^2 \\
 	&= \sigma(wx)(1-\sigma(wx) x^2 \\
 	\\ \\
 	\sigma(wx)&\to(0,1) \\
