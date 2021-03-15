@@ -154,12 +154,7 @@ the estimated parameter and what the model has predicted.
 Gradient descent can be applied as soon as a problem can be defined as the optimization of a continuous and differentiable function. It is a local algorithm and will only lead to a unique solution if the given function is also convex ($f^{\prime\prime}(x)>0, x \in {\rm I\!R}^n$). If the function is not convex, the GD algorithm can easily get caught up in a local maxima as the gradient will converge to $0$ at such points.
 
 \subsection{Task d}
-Because the SE with respect to the sigmoid function is not convex as shown in Exercise \ref{taskf}.
-The MSE function is non-convex for binary classification. If a binary classification model
-is trained with MSE Cost function, it is not guaranteed to minimize the Cost function.
-This is because MSE function expects real-valued inputs in range(-∞, +∞), while binary
-classification models output probabilities in range (0,1) through the sigmoid/logistic
-function.
+The MSE function is non-convex for binary classification. If a binary classification model is trained with MSE Cost function, it is not guaranteed to minimize the Cost function. This is because MSE function expects real-valued inputs in range $(-\infty, +\infty)$, while binary classification models output probabilities in range (0,1) through the sigmoid/logistic function.
 
 \subsection{Task e}
 If the learning rate is too large, it can jump over the minima we are trying to reach, we
