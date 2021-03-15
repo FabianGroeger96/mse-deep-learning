@@ -1,4 +1,3 @@
-
 # Created by https://www.toptal.com/developers/gitignore/api/vim,python,jupyternotebooks,pycharm,tex
 # Edit at https://www.toptal.com/developers/gitignore?templates=vim,python,jupyternotebooks,pycharm,tex
 
@@ -566,5 +565,8 @@ Sessionx.vim
 tags
 # Persistent undo
 [._]*.un~
+
+# OSX temp files
+.DS_Store
 
 # End of https://www.toptal.com/developers/gitignore/api/vim,python,jupyternotebooks,pycharm,tex
