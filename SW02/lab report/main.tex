@@ -9,6 +9,8 @@
 \usepackage[scaled]{helvet} % helvetica
 \usepackage{microtype}
 \usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem} % alphabetic enumeration
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
 \usepackage{subfigure}
@@ -16,7 +18,9 @@
 \newcommand{\spacecaps}[1]{\textls[200]{\MakeUppercase{#1}}}
 \newcommand{\spacesc}[1]{\textls[50]{\textsc{\MakeLowercase{#1}}}}
 
-\title{\spacecaps{Lab report: SW02}\\ \normalsize \spacesc{TSM\_DeLearn} }
+\def\doubleunderline#1{\underline{\underline{#1}}}
+
+\title{\spacecaps{Lab report: SW02 }\\ \normalsize \spacesc{TSM\_DeLearn} }
 
 \author{Andrin Bürli\thanks{andrin.buerli@hslu.ch}, Nursinem Dere\thanks{nursinem.dere@stud.hslu.ch}, Fabian Gröger\thanks{fabian.groeger@hslu.ch}\\Hochschule Luzern}
 \date{\today}
@@ -138,25 +142,35 @@ Hence the gradient update step $x_{t}\leftarrow x_{t-1}-\frac{d}{dx}SE(x_{t-1})$
 
 \section{Exercise 4}
 \subsection{Task a}
-Without normalisation the weights of the values need to be initialised differently to compensate for the sacale of the different features. Otherwise the features with large magnitudes will dominate. Hence the Algorithm has first to learn how to properly handle the scales before learning the actual importance of the features for the task at hand.
+It is beneficial because the input features are scaled similarly and thus build a loss landscape that is easier to optimize. Otherwise, the model additionally needs to learn to cope with the different feature scales, which leads to longer training and poorer performance. the scales before learning the actual importance of the features for the task at hand.
 
 \subsection{Task b}
-Thanks to the formalisation of learning as an optimization problem, we can use already developed algorithms to optimize the given parameters.
+Machine learning optimization is the process of adjusting the hyperparameters in order to
+minimize the cost function by using one of the optimization techniques. It is important to
+minimize the cost function because it describes the discrepancy between the true value of
+the estimated parameter and what the model has predicted.
 
 \subsection{Task c}
 Gradient descent can be applied as soon as a problem can be defined as the optimization of a continuous and differentiable function. It is a local algorithm and will only lead to a unique solution if the given function is also convex ($f^{\prime\prime}(x)>0, x \in {\rm I\!R}^n$). If the function is not convex, the GD algorithm can easily get caught up in a local maxima as the gradient will converge to $0$ at such points.
 
 \subsection{Task d}
 Because the SE with respect to the sigmoid function is not convex as shown in Exercise \ref{taskf}.
+The MSE function is non-convex for binary classification. If a binary classification model
+is trained with MSE Cost function, it is not guaranteed to minimize the Cost function.
+This is because MSE function expects real-valued inputs in range(-∞, +∞), while binary
+classification models output probabilities in range (0,1) through the sigmoid/logistic
+function.
 
 \subsection{Task e}
-If the learning rate is too large, the cost function will not converge but rather diverge.
+If the learning rate is too large, it can jump over the minima we are trying to reach, we
+overshoot. This can lead to osculations around the minimum or in some cases to outright
+divergence.
 
 \subsection{Task f}
 If that happens, the choosen parameters overfit the training data and do not well generalize to yet unseen datapoints.
 
 \subsection{Task g}
-It is harder for the algorithm to reach small values on the training data, as it has to account for more variance. But it is easier to reach small values on the test data, because in order to converge on the training set the parameters had to become more general in order to account for the additional variance in the larger training set.
+It is harder to reach a small train error because the dataset incorporates more variance. But it is easier to have a smaller generalization error when having a larger dataset since it is assumed that the dataset gets more similar to the true underlying distribution.order to account for the additional variance in the larger training set.
 
 \end{document}
 
