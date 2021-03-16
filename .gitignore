@@ -569,4 +569,7 @@ tags
 # OSX temp files
 .DS_Store
 
+# data folders
+*data
+
 # End of https://www.toptal.com/developers/gitignore/api/vim,python,jupyternotebooks,pycharm,tex
