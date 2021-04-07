@@ -14197,23 +14197,7 @@ a.anchor-link {
 .highlight  {
     margin: 0.4em;
 }
-
-/* Input area styling */
-.jp-InputArea {
-    overflow: hidden;
-}
-
-.jp-InputArea-editor {
-    overflow: hidden;
-}
-
-@media print {
-  body {
-    margin: 0;
-  }
-}
 </style>
-
 
 
 <!-- Load mathjax -->
@@ -14748,8 +14732,10 @@ Train/Val Set: (x: (784, 60000), y: (1, 60000)) | Test Set: (x: (784, 10000), y:
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_equal</span><span class="p">(</span><span class="n">activations_prev</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">nunits_prev</span><span class="p">)</span>
         <span class="c1">### START YOUR CODE ###</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">activations_prev</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">activations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activ_func</span><span class="o">.</span><span class="n">compute_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logits</span><span class="p">)</span>
+        
         <span class="c1">### END YOUR CODE ###</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">activations</span>
 
@@ -14771,18 +14757,21 @@ Train/Val Set: (x: (784, 60000), y: (1, 60000)) | Test Set: (x: (784, 10000), y:
 <span class="sd">        Returns:</span>
 <span class="sd">        grad_activations_prev -- gradient of the cost w.r.t. to the input activations of the given layer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">nsamples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logits</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">nsamples</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">logits</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_equal</span><span class="p">(</span><span class="n">grad_activations</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nunits</span><span class="p">,</span> <span class="n">nsamples</span><span class="p">))</span>
 
-        <span class="c1">### START YOUR CODE ###</span>
+        <span class="c1">### START YOUR CODE ###        </span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grad_logits</span> <span class="o">=</span> <span class="n">grad_activations</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">activ_func</span><span class="o">.</span><span class="n">compute_derivative</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logits</span><span class="p">)</span>
+        
         <span class="c1"># useful for testing the shapes - once self.grad_logits is computed check shape with:</span>
         <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grad_logits</span><span class="o">.</span><span class="n">shape</span><span class="p">,(</span><span class="bp">self</span><span class="o">.</span><span class="n">nunits</span><span class="p">,</span><span class="n">nsamples</span><span class="p">))</span>
         
-        <span class="n">grad_activations_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grad_logits</span><span class="p">)</span> 
+        <span class="n">grad_activations_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grad_logits</span><span class="p">)</span>
+        
         <span class="c1"># useful for testing the shapes - once self.grad_activations_prev is computed check shape with:</span>
         <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_equal</span><span class="p">(</span><span class="n">grad_activations_prev</span><span class="o">.</span><span class="n">shape</span><span class="p">,(</span><span class="bp">self</span><span class="o">.</span><span class="n">nunits_prev</span><span class="p">,</span><span class="n">nsamples</span><span class="p">))</span>        
 
+        
         <span class="k">return</span> <span class="n">grad_activations_prev</span>
         <span class="c1">### END YOUR CODE ###</span>
     
@@ -14802,9 +14791,9 @@ Train/Val Set: (x: (784, 60000), y: (1, 60000)) | Test Set: (x: (784, 10000), y:
 <span class="sd">        grad_weights -- the gradient w.r.t. to the weights. A numpy array of shape (nunits, nunits_prev).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1">### START YOUR CODE ###</span>
-        <span class="n">grad_weights</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad_logits</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">activations_prev</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad_logits</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">activations_prev</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>     
         
-        <span class="k">return</span> <span class="n">grad_weights</span>
         <span class="c1">### END YOUR CODE ###</span>
     
 
@@ -14819,9 +14808,9 @@ Train/Val Set: (x: (784, 60000), y: (1, 60000)) | Test Set: (x: (784, 10000), y:
 <span class="sd">        grad_bias -- the gradient w.r.t. to the bias. A numpy array of shape (nunits, 1).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1">### START YOUR CODE ###        </span>
-        <span class="n">grad_bias</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad_logits</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad_logits</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>         
         
-        <span class="k">return</span> <span class="n">grad_bias</span>
         <span class="c1">### END YOUR CODE ###</span>
 </pre></div>
 
@@ -14830,10 +14819,46 @@ Train/Val Set: (x: (784, 60000), y: (1, 60000)) | Test Set: (x: (784, 10000), y:
 </div>
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Calculating the derivative of the softmax activation function values $a_i$ with respect to the logits $z_i$ where the layer has $n$ neurons, hence $0\leq i \leq n$, results in</p>
+$$
+\frac{\partial a_j}{\partial z_i} = \left\{
+\begin{array}
+\ \sigma(z_i)(1-\sigma(z_j)) \\
+-\sigma(z_i)\sigma(z_j) 
+\end{array}
+\begin{array}
+  \quad  \quad  \text{if } i = j\\
+ \quad \text{if } i \neq j
+\end{array}
+\right\}
+\sigma(z_i)(\delta_{ij}-\sigma(z_j)) \quad \text{where } \delta_{ij} \text{ describes the Kronecker delta}
+$$<p>In order to get rid of the Kronecker delta in the calculation and vectorize the formula we can reformulate</p>
+$$
+\frac{\partial a}{\partial z} = \text{diag}(\sigma(z)) - \sigma(z)\sigma(z)^\top 
+$$<p>This will result in a $n\times n$ matrix.</p>
+$$
+\left[
+\begin{array}
+\ \frac{\partial \mathcal a_1}{\partial z_1} &amp; \ldots &amp; \frac{\partial \mathcal a_1}{\partial z_n} \\
+\vdots &amp; \ddots &amp; \vdots \\
+\frac{\partial \mathcal a_n}{\partial z_1} &amp; \ldots &amp; \frac{\partial \mathcal a_n}{\partial z_n}
+\end{array}
+\right]
+$$<p>Now to calculate $\frac{\partial \mathcal L}{\partial z_i}$ we simply multiply by the gradient of the loss with respect to the softmax activations. As the change of the logit $z_i$ will influence the softmax activations for all $a_i$, we have to accumulate their gradients</p>
+$$
+\frac{\partial \mathcal L}{\partial z_i} = \sum_{j=1}^n \frac{\partial \mathcal L}{\partial a_i} \frac{\partial a_j}{\partial z_i}
+$$<p>In a vectorized format this reads as</p>
+$$
+\frac{\partial \mathcal L}{\partial z} = \frac{\partial \mathcal L}{\partial a}^\top\cdot \frac{\partial a}{\partial z}= \frac{\partial \mathcal L}{\partial a}^\top\cdot \left( \text{diag}(\sigma(z)) - \sigma(z)\sigma(z)^\top \right)
+$$
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[43]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Softmax</span><span class="p">(</span><span class="n">Layer</span><span class="p">):</span>
@@ -14868,24 +14893,29 @@ Train/Val Set: (x: (784, 60000), y: (1, 60000)) | Test Set: (x: (784, 10000), y:
 <span class="sd">        grad_activations_prev -- gradient of the cost w.r.t. to the input activations of the given layer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1">### START YOUR CODE ###</span>
-        <span class="n">m</span> <span class="o">=</span> <span class="n">grad_activations</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="c1"># softmax backprpagate helper</span>
-        <span class="k">def</span> <span class="nf">softmax_back</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">da</span><span class="p">):</span>
-            <span class="c1"># z, da shapes - (m, n)</span>
-            <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">shape</span>
-            <span class="n">tensor1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;ij,ik-&gt;ijk&#39;</span><span class="p">,</span> <span class="n">z</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">z</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-            <span class="n">tensor2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;ji,ik-&gt;jik&#39;</span><span class="p">,</span> <span class="n">z</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">m</span><span class="p">))</span>
-            <span class="n">dSoftmax</span> <span class="o">=</span> <span class="n">tensor2</span> <span class="o">-</span> <span class="n">tensor1</span>
-            <span class="n">dz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;ijk,ik-&gt;ij&#39;</span><span class="p">,</span> <span class="n">dSoftmax</span><span class="p">,</span> <span class="n">da</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-            
-            <span class="k">return</span> <span class="n">dz</span>
         
-        <span class="bp">self</span><span class="o">.</span><span class="n">grad_logits</span> <span class="o">=</span> <span class="n">softmax_back</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">activations</span><span class="p">,</span> <span class="n">grad_activations</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">/</span><span class="n">m</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">grad_activations</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        
+        <span class="c1"># Calculate logits gradient knowing that CE is used as loss function</span>
+        <span class="c1"># delta = (grad_activations != 0).astype(int)</span>
+        <span class="c1"># self.grad_logits = (self.activations - delta) / m</span>
+        
+        <span class="c1"># Calculate logits gradient only with respect to softmax, not knowing that CE is used as loss function</span>
+        <span class="k">def</span> <span class="nf">softmax_grad</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dL_da</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">aiaj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+            <span class="n">ai</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diagflat</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="n">da_dz</span> <span class="o">=</span> <span class="n">ai</span> <span class="o">-</span> <span class="n">aiaj</span>
+            <span class="k">return</span> <span class="n">dL_da</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">da_dz</span><span class="p">)</span>
+        
+        <span class="c1"># I did not know how to verctorize this formula</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grad_logits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">([</span><span class="n">softmax_grad</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">activations</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">grad_activations</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)])</span><span class="o">.</span><span class="n">T</span> <span class="o">/</span> <span class="n">m</span>
+        
         <span class="n">grad_activations_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grad_logits</span><span class="p">)</span>
-
+        
         <span class="k">return</span> <span class="n">grad_activations_prev</span>
         
-        <span class="c1">### END YOUR CODE ###       </span>
+        <span class="c1">### END YOUR CODE ###            </span>
 </pre></div>
 
      </div>
@@ -14896,7 +14926,7 @@ Train/Val Set: (x: (784, 60000), y: (1, 60000)) | Test Set: (x: (784, 10000), y:
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[40]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">MLP</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -14922,6 +14952,7 @@ Train/Val Set: (x: (784, 60000), y: (1, 60000)) | Test Set: (x: (784, 10000), y:
         <span class="c1"># Initialize self.layers and self.number_of_hidden_layers</span>
         
         <span class="c1">### START YOUR CODE ###        </span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">number_of_hidden_layers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">units_per_layer</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span>
         
         <span class="k">for</span> <span class="n">layer_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_hidden_layers</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
@@ -14936,6 +14967,8 @@ Train/Val Set: (x: (784, 60000), y: (1, 60000)) | Test Set: (x: (784, 10000), y:
             <span class="n">Softmax</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">number_of_hidden_layers</span><span class="p">,</span> <span class="n">units_per_layer</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
                 <span class="n">units_per_layer</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">NormInitializer</span><span class="p">()))</span>
+        
+
         <span class="c1">### END YOUR CODE ###        </span>
 
         
@@ -14959,6 +14992,7 @@ Train/Val Set: (x: (784, 60000), y: (1, 60000)) | Test Set: (x: (784, 10000), y:
 <span class="sd">        a -- activations of the last layer of shape (n_L,m)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1">### START YOUR CODE ###                </span>
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
         <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
         
@@ -14966,6 +15000,7 @@ Train/Val Set: (x: (784, 60000), y: (1, 60000)) | Test Set: (x: (784, 10000), y:
             <span class="n">a</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
             
         <span class="k">return</span> <span class="n">a</span>
+        
         <span class="c1">### END YOUR CODE ###        </span>
 
     <span class="k">def</span> <span class="nf">backpropagate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grady</span><span class="p">):</span>
@@ -14985,10 +15020,12 @@ Train/Val Set: (x: (784, 60000), y: (1, 60000)) | Test Set: (x: (784, 10000), y:
 <span class="sd">        gradient with respect to the inputs to the network. A numpy array of shape (n_0,m)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1">### START YOUR CODE ###        </span>
+
         <span class="n">grad</span> <span class="o">=</span> <span class="n">grady</span>
         
         <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">):</span>
             <span class="n">grad</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">backpropagate</span><span class="p">(</span><span class="n">grad</span><span class="p">)</span>
+        
         <span class="c1">### END YOUR CODE ###        </span>
     
     <span class="k">def</span> <span class="nf">update_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">):</span>
@@ -15000,6 +15037,7 @@ Train/Val Set: (x: (784, 60000), y: (1, 60000)) | Test Set: (x: (784, 10000), y:
 <span class="sd">        learning_rate -- learning rate to be used in the update rule.   </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1">### START YOUR CODE ### </span>
+
         <span class="n">prev_activations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
 
         <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
@@ -15007,6 +15045,8 @@ Train/Val Set: (x: (784, 60000), y: (1, 60000)) | Test Set: (x: (784, 10000), y:
             <span class="n">layer</span><span class="o">.</span><span class="n">bias</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">layer</span><span class="o">.</span><span class="n">gradient_bias</span><span class="p">()</span>
             
             <span class="n">prev_activations</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">activations</span>
+        
+
         <span class="c1">### END YOUR CODE ###        </span>
 </pre></div>
 
@@ -15023,7 +15063,7 @@ Train/Val Set: (x: (784, 60000), y: (1, 60000)) | Test Set: (x: (784, 10000), y:
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[36]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x00</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="o">-</span><span class="mf">1.0</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
@@ -15060,7 +15100,7 @@ Train/Val Set: (x: (784, 60000), y: (1, 60000)) | Test Set: (x: (784, 10000), y:
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[37]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">timeit</span> <span class="kn">import</span> <span class="n">default_timer</span> <span class="k">as</span> <span class="n">timer</span>
@@ -15101,12 +15141,12 @@ Train/Val Set: (x: (784, 60000), y: (1, 60000)) | Test Set: (x: (784, 10000), y:
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Exec time for batchsize     1 : 24.008 sec
-Exec time for batchsize    10 :  8.119 sec
-Exec time for batchsize   100 :  8.808 sec
-Exec time for batchsize  1000 :  5.488 sec
-Exec time for batchsize 10000 :  4.832 sec
-Exec time for batchsize 50000 :  5.354 sec
+<pre>Exec time for batchsize     1 : 101.625 sec
+Exec time for batchsize    10 : 26.306 sec
+Exec time for batchsize   100 : 11.921 sec
+Exec time for batchsize  1000 : 11.917 sec
+Exec time for batchsize 10000 : 12.712 sec
+Exec time for batchsize 50000 : 12.348 sec
 </pre>
 </div>
 </div>
@@ -15118,7 +15158,7 @@ Exec time for batchsize 50000 :  5.354 sec
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Your-Explanation-of-the-Observed-Runtime-vs-Batch-Size">Your Explanation of the Observed Runtime vs Batch Size<a class="anchor-link" href="#Your-Explanation-of-the-Observed-Runtime-vs-Batch-Size">&#182;</a></h4><p>TODO</p>
+<h4 id="Your-Explanation-of-the-Observed-Runtime-vs-Batch-Size">Your Explanation of the Observed Runtime vs Batch Size<a class="anchor-link" href="#Your-Explanation-of-the-Observed-Runtime-vs-Batch-Size">&#182;</a></h4><p><font style="color: red;">When using a batch size of 1, all the calculations for the forward passes for every sample in the training set will be executed sequentially. When using a larger batchsize, the calculations can be done in an optimized manner, depending on the hardware of the current machine. The runtime seems to stagnate at ~10s as at some point the hardware cannot handle larger batchsizes anymore and hence runs part of the batches sequentially again. </font></p>
 
 </div>
 </div>
@@ -15132,7 +15172,7 @@ Exec time for batchsize 50000 :  5.354 sec
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Check Gradient of Cross Entropy Cost</span>
@@ -15186,7 +15226,7 @@ Exec time for batchsize 50000 :  5.354 sec
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[44]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Check gradient of cost w.r.t. weights and biases of MLP</span>
@@ -15271,7 +15311,7 @@ Testing layer with id 3
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[45]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -15409,7 +15449,7 @@ Testing layer with id 3
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[46]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">optimize</span><span class="p">(</span><span class="n">mlp</span><span class="p">,</span> <span class="n">cost</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">nepochs</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">,</span> <span class="n">batchsize</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -15447,6 +15487,7 @@ Testing layer with id 3
         <span class="c1"># propagate and then back-propagate the gradient of the cost</span>
         <span class="c1"># update the parameters by using the gradient of the costs w.r.t. these parameters and the learning rate</span>
         <span class="c1"># finally update the metrics object</span>
+
         
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">mb</span><span class="p">):</span>
             <span class="n">xbatch</span><span class="p">,</span> <span class="n">ybatch</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">next_batch</span><span class="p">()</span>
@@ -15462,6 +15503,7 @@ Testing layer with id 3
         <span class="n">ypred_val</span> <span class="o">=</span> <span class="n">mlp</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">xval</span><span class="p">)</span>    
         <span class="n">metrics</span><span class="o">.</span><span class="n">update_iteration</span><span class="p">(</span><span class="n">ypred_train</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">ytrain</span><span class="p">,</span> <span class="n">ypred_val</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">yval</span><span class="p">)</span>
         <span class="n">metrics</span><span class="o">.</span><span class="n">update_epoch</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        
         <span class="c1">### END YOUR CODE ### </span>
             
         <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
@@ -15481,7 +15523,7 @@ Testing layer with id 3
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[47]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">timeit</span> <span class="kn">import</span> <span class="n">default_timer</span> <span class="k">as</span> <span class="n">timer</span>
@@ -15489,7 +15531,7 @@ Testing layer with id 3
 <span class="c1">### START YOUR CODE ### </span>
 <span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.01</span>
 <span class="n">batchsize</span> <span class="o">=</span> <span class="mi">64</span>
-<span class="n">nepochs</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">nepochs</span> <span class="o">=</span> <span class="mi">500</span>
 <span class="n">layersizes</span> <span class="o">=</span> <span class="p">(</span><span class="mi">784</span><span class="p">,</span> <span class="mi">780</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 <span class="c1">### END YOUR CODE ### </span>
 
@@ -15520,209 +15562,509 @@ Testing layer with id 3
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Train/val error after epoch 0: 0.151400, 0.144700
-Train/val error after epoch 1: 0.128680, 0.124800
-Train/val error after epoch 2: 0.116840, 0.116900
-Train/val error after epoch 3: 0.109680, 0.109500
-Train/val error after epoch 4: 0.105080, 0.104400
-Train/val error after epoch 5: 0.101540, 0.098800
-Train/val error after epoch 6: 0.098700, 0.097500
-Train/val error after epoch 7: 0.096580, 0.096100
-Train/val error after epoch 8: 0.095420, 0.093000
-Train/val error after epoch 9: 0.092780, 0.093200
-Train/val error after epoch 10: 0.091480, 0.090900
-Train/val error after epoch 11: 0.089480, 0.088700
-Train/val error after epoch 12: 0.087020, 0.086800
-Train/val error after epoch 13: 0.086420, 0.087000
-Train/val error after epoch 14: 0.086060, 0.087000
-Train/val error after epoch 15: 0.083040, 0.083600
-Train/val error after epoch 16: 0.082300, 0.082000
-Train/val error after epoch 17: 0.081580, 0.081200
-Train/val error after epoch 18: 0.081000, 0.081600
-Train/val error after epoch 19: 0.080660, 0.079300
-Train/val error after epoch 20: 0.079980, 0.079300
-Train/val error after epoch 21: 0.078300, 0.078900
-Train/val error after epoch 22: 0.077920, 0.077900
-Train/val error after epoch 23: 0.076780, 0.077900
-Train/val error after epoch 24: 0.076060, 0.075900
-Train/val error after epoch 25: 0.075660, 0.076000
-Train/val error after epoch 26: 0.075620, 0.076900
-Train/val error after epoch 27: 0.074880, 0.074900
-Train/val error after epoch 28: 0.072920, 0.074000
-Train/val error after epoch 29: 0.072680, 0.073900
-Train/val error after epoch 30: 0.071660, 0.073800
-Train/val error after epoch 31: 0.071280, 0.073700
-Train/val error after epoch 32: 0.071420, 0.073300
-Train/val error after epoch 33: 0.069360, 0.071600
-Train/val error after epoch 34: 0.068240, 0.070700
-Train/val error after epoch 35: 0.068840, 0.070200
-Train/val error after epoch 36: 0.068320, 0.069800
-Train/val error after epoch 37: 0.066620, 0.070000
-Train/val error after epoch 38: 0.068000, 0.072600
-Train/val error after epoch 39: 0.066900, 0.070000
-Train/val error after epoch 40: 0.065440, 0.068700
-Train/val error after epoch 41: 0.065500, 0.068700
-Train/val error after epoch 42: 0.064160, 0.066500
-Train/val error after epoch 43: 0.062780, 0.066100
-Train/val error after epoch 44: 0.062020, 0.064500
-Train/val error after epoch 45: 0.061440, 0.066300
-Train/val error after epoch 46: 0.061340, 0.064800
-Train/val error after epoch 47: 0.060220, 0.063400
-Train/val error after epoch 48: 0.061600, 0.063800
-Train/val error after epoch 49: 0.059020, 0.063400
-Train/val error after epoch 50: 0.058560, 0.062400
-Train/val error after epoch 51: 0.057680, 0.061800
-Train/val error after epoch 52: 0.058240, 0.060700
-Train/val error after epoch 53: 0.056520, 0.060000
-Train/val error after epoch 54: 0.056280, 0.060200
-Train/val error after epoch 55: 0.055940, 0.060400
-Train/val error after epoch 56: 0.056100, 0.058000
-Train/val error after epoch 57: 0.055440, 0.059100
-Train/val error after epoch 58: 0.053120, 0.057400
-Train/val error after epoch 59: 0.054020, 0.056000
-Train/val error after epoch 60: 0.053180, 0.056600
-Train/val error after epoch 61: 0.052840, 0.056500
-Train/val error after epoch 62: 0.051980, 0.056400
-Train/val error after epoch 63: 0.051260, 0.055800
-Train/val error after epoch 64: 0.051300, 0.055000
-Train/val error after epoch 65: 0.049780, 0.054800
-Train/val error after epoch 66: 0.049600, 0.054400
-Train/val error after epoch 67: 0.048740, 0.053800
-Train/val error after epoch 68: 0.049360, 0.053400
-Train/val error after epoch 69: 0.048620, 0.053900
-Train/val error after epoch 70: 0.048100, 0.053200
-Train/val error after epoch 71: 0.047760, 0.052600
-Train/val error after epoch 72: 0.047460, 0.052700
-Train/val error after epoch 73: 0.046940, 0.052500
-Train/val error after epoch 74: 0.046540, 0.053100
-Train/val error after epoch 75: 0.046000, 0.050300
-Train/val error after epoch 76: 0.045280, 0.050200
-Train/val error after epoch 77: 0.045180, 0.049500
-Train/val error after epoch 78: 0.044900, 0.050600
-Train/val error after epoch 79: 0.043940, 0.049900
-Train/val error after epoch 80: 0.044200, 0.049100
-Train/val error after epoch 81: 0.043400, 0.049300
-Train/val error after epoch 82: 0.042680, 0.048100
-Train/val error after epoch 83: 0.042840, 0.048100
-Train/val error after epoch 84: 0.041940, 0.048700
-Train/val error after epoch 85: 0.042200, 0.047100
-Train/val error after epoch 86: 0.041540, 0.048300
-Train/val error after epoch 87: 0.040620, 0.046600
-Train/val error after epoch 88: 0.041040, 0.046600
-Train/val error after epoch 89: 0.040460, 0.046900
-Train/val error after epoch 90: 0.040140, 0.046100
-Train/val error after epoch 91: 0.039920, 0.046700
-Train/val error after epoch 92: 0.039300, 0.045600
-Train/val error after epoch 93: 0.039460, 0.044800
-Train/val error after epoch 94: 0.038760, 0.046500
-Train/val error after epoch 95: 0.038380, 0.044600
-Train/val error after epoch 96: 0.037960, 0.044800
-Train/val error after epoch 97: 0.037480, 0.043800
-Train/val error after epoch 98: 0.037140, 0.044400
-Train/val error after epoch 99: 0.037540, 0.044000
-Train/val error after epoch 100: 0.036140, 0.043400
-Train/val error after epoch 101: 0.036540, 0.043900
-Train/val error after epoch 102: 0.036220, 0.043500
-Train/val error after epoch 103: 0.036320, 0.042800
-Train/val error after epoch 104: 0.035540, 0.042100
-Train/val error after epoch 105: 0.035600, 0.042100
-Train/val error after epoch 106: 0.035100, 0.041500
-Train/val error after epoch 107: 0.034860, 0.042000
-Train/val error after epoch 108: 0.034900, 0.041900
-Train/val error after epoch 109: 0.034620, 0.041500
-Train/val error after epoch 110: 0.033680, 0.040700
-Train/val error after epoch 111: 0.034060, 0.041200
-Train/val error after epoch 112: 0.033920, 0.040600
-Train/val error after epoch 113: 0.033640, 0.041100
-Train/val error after epoch 114: 0.032340, 0.039900
-Train/val error after epoch 115: 0.032520, 0.040400
-Train/val error after epoch 116: 0.032300, 0.040700
-Train/val error after epoch 117: 0.032280, 0.039800
-Train/val error after epoch 118: 0.031460, 0.039200
-Train/val error after epoch 119: 0.031700, 0.039300
-Train/val error after epoch 120: 0.031420, 0.039100
-Train/val error after epoch 121: 0.031140, 0.039100
-Train/val error after epoch 122: 0.031120, 0.039300
-Train/val error after epoch 123: 0.030980, 0.038700
-Train/val error after epoch 124: 0.030780, 0.038900
-Train/val error after epoch 125: 0.030200, 0.037800
-Train/val error after epoch 126: 0.030080, 0.038900
-Train/val error after epoch 127: 0.029620, 0.037500
-Train/val error after epoch 128: 0.029560, 0.037700
-Train/val error after epoch 129: 0.029460, 0.036800
-Train/val error after epoch 130: 0.028800, 0.036500
-Train/val error after epoch 131: 0.028820, 0.037100
-Train/val error after epoch 132: 0.028900, 0.037300
-Train/val error after epoch 133: 0.028240, 0.036300
-Train/val error after epoch 134: 0.028560, 0.036500
-Train/val error after epoch 135: 0.028060, 0.035700
-Train/val error after epoch 136: 0.027660, 0.035600
-Train/val error after epoch 137: 0.027600, 0.036000
-Train/val error after epoch 138: 0.027400, 0.034500
-Train/val error after epoch 139: 0.027360, 0.034600
-Train/val error after epoch 140: 0.027280, 0.034800
-Train/val error after epoch 141: 0.026940, 0.036000
-Train/val error after epoch 142: 0.027660, 0.035300
-Train/val error after epoch 143: 0.026940, 0.035800
-Train/val error after epoch 144: 0.026840, 0.034700
-Train/val error after epoch 145: 0.026340, 0.034400
-Train/val error after epoch 146: 0.025580, 0.034300
-Train/val error after epoch 147: 0.025780, 0.034500
-Train/val error after epoch 148: 0.025440, 0.033700
-Train/val error after epoch 149: 0.025480, 0.034000
-Train/val error after epoch 150: 0.024780, 0.033700
-Train/val error after epoch 151: 0.025180, 0.034700
-Train/val error after epoch 152: 0.025200, 0.033800
-Train/val error after epoch 153: 0.024920, 0.033200
-Train/val error after epoch 154: 0.024180, 0.032800
-Train/val error after epoch 155: 0.024380, 0.033000
-Train/val error after epoch 156: 0.024580, 0.033700
-Train/val error after epoch 157: 0.024420, 0.033000
-Train/val error after epoch 158: 0.023780, 0.032200
-Train/val error after epoch 159: 0.024020, 0.033600
-Train/val error after epoch 160: 0.023660, 0.032400
-Train/val error after epoch 161: 0.023260, 0.033300
-Train/val error after epoch 162: 0.023640, 0.033300
-Train/val error after epoch 163: 0.023340, 0.031900
-Train/val error after epoch 164: 0.023120, 0.032100
-Train/val error after epoch 165: 0.023260, 0.032100
-Train/val error after epoch 166: 0.022860, 0.031600
-Train/val error after epoch 167: 0.023040, 0.033600
-Train/val error after epoch 168: 0.022880, 0.031200
-Train/val error after epoch 169: 0.022980, 0.033200
-Train/val error after epoch 170: 0.022340, 0.031400
-Train/val error after epoch 171: 0.021800, 0.030300
-Train/val error after epoch 172: 0.021920, 0.030600
-Train/val error after epoch 173: 0.022040, 0.031800
-Train/val error after epoch 174: 0.021780, 0.030500
-Train/val error after epoch 175: 0.021480, 0.031200
-Train/val error after epoch 176: 0.021300, 0.030800
-Train/val error after epoch 177: 0.021500, 0.029500
-Train/val error after epoch 178: 0.021100, 0.030900
-Train/val error after epoch 179: 0.021220, 0.030500
-Train/val error after epoch 180: 0.020740, 0.030200
-Train/val error after epoch 181: 0.020640, 0.030700
-Train/val error after epoch 182: 0.020560, 0.030400
-Train/val error after epoch 183: 0.020040, 0.029700
-Train/val error after epoch 184: 0.020200, 0.030400
-Train/val error after epoch 185: 0.020360, 0.029800
-Train/val error after epoch 186: 0.019980, 0.030000
-Train/val error after epoch 187: 0.019920, 0.030000
-Train/val error after epoch 188: 0.020020, 0.029700
-Train/val error after epoch 189: 0.019660, 0.029400
-Train/val error after epoch 190: 0.019220, 0.029400
-Train/val error after epoch 191: 0.019600, 0.029100
-Train/val error after epoch 192: 0.019160, 0.029200
-Train/val error after epoch 193: 0.019300, 0.029800
-Train/val error after epoch 194: 0.019600, 0.029500
-Train/val error after epoch 195: 0.019780, 0.029500
-Train/val error after epoch 196: 0.018420, 0.028600
-Train/val error after epoch 197: 0.018760, 0.028600
-Train/val error after epoch 198: 0.018860, 0.028100
-Train/val error after epoch 199: 0.018540, 0.028700
-Train/val cost after epoch 199: 0.069979, 0.098348
-Train/val error after epoch 199: 0.018540, 0.028700
-1922.080833928998
+<pre>Train/val error after epoch 0: 0.159660, 0.154700
+Train/val error after epoch 1: 0.128860, 0.125900
+Train/val error after epoch 2: 0.116280, 0.113800
+Train/val error after epoch 3: 0.108320, 0.107600
+Train/val error after epoch 4: 0.103300, 0.104200
+Train/val error after epoch 5: 0.099500, 0.100000
+Train/val error after epoch 6: 0.097640, 0.097500
+Train/val error after epoch 7: 0.097520, 0.097500
+Train/val error after epoch 8: 0.093740, 0.093100
+Train/val error after epoch 9: 0.091180, 0.090000
+Train/val error after epoch 10: 0.090300, 0.089500
+Train/val error after epoch 11: 0.089100, 0.089700
+Train/val error after epoch 12: 0.087860, 0.087000
+Train/val error after epoch 13: 0.086420, 0.086400
+Train/val error after epoch 14: 0.084340, 0.083700
+Train/val error after epoch 15: 0.083520, 0.083200
+Train/val error after epoch 16: 0.083100, 0.083000
+Train/val error after epoch 17: 0.082300, 0.082100
+Train/val error after epoch 18: 0.079920, 0.080200
+Train/val error after epoch 19: 0.079940, 0.081400
+Train/val error after epoch 20: 0.079060, 0.079800
+Train/val error after epoch 21: 0.079560, 0.078700
+Train/val error after epoch 22: 0.077160, 0.078300
+Train/val error after epoch 23: 0.077320, 0.078300
+Train/val error after epoch 24: 0.076080, 0.077300
+Train/val error after epoch 25: 0.075260, 0.075200
+Train/val error after epoch 26: 0.075100, 0.076100
+Train/val error after epoch 27: 0.073180, 0.074400
+Train/val error after epoch 28: 0.073900, 0.075800
+Train/val error after epoch 29: 0.073460, 0.074900
+Train/val error after epoch 30: 0.071760, 0.072900
+Train/val error after epoch 31: 0.070620, 0.071700
+Train/val error after epoch 32: 0.069820, 0.070700
+Train/val error after epoch 33: 0.069980, 0.071200
+Train/val error after epoch 34: 0.069660, 0.072100
+Train/val error after epoch 35: 0.068120, 0.070800
+Train/val error after epoch 36: 0.067140, 0.070000
+Train/val error after epoch 37: 0.066820, 0.070000
+Train/val error after epoch 38: 0.066160, 0.069400
+Train/val error after epoch 39: 0.065420, 0.068300
+Train/val error after epoch 40: 0.064940, 0.067800
+Train/val error after epoch 41: 0.063960, 0.067500
+Train/val error after epoch 42: 0.063440, 0.067700
+Train/val error after epoch 43: 0.063620, 0.066900
+Train/val error after epoch 44: 0.062260, 0.065500
+Train/val error after epoch 45: 0.061820, 0.065500
+Train/val error after epoch 46: 0.061240, 0.064800
+Train/val error after epoch 47: 0.059540, 0.062500
+Train/val error after epoch 48: 0.059900, 0.063600
+Train/val error after epoch 49: 0.059240, 0.063500
+Train/val error after epoch 50: 0.058580, 0.061900
+Train/val error after epoch 51: 0.057860, 0.061000
+Train/val error after epoch 52: 0.057320, 0.061000
+Train/val error after epoch 53: 0.056620, 0.060200
+Train/val error after epoch 54: 0.056440, 0.059700
+Train/val error after epoch 55: 0.055560, 0.058400
+Train/val error after epoch 56: 0.055220, 0.058300
+Train/val error after epoch 57: 0.054540, 0.059100
+Train/val error after epoch 58: 0.053800, 0.057500
+Train/val error after epoch 59: 0.053280, 0.056700
+Train/val error after epoch 60: 0.052760, 0.057100
+Train/val error after epoch 61: 0.052680, 0.057600
+Train/val error after epoch 62: 0.052360, 0.056800
+Train/val error after epoch 63: 0.050960, 0.056200
+Train/val error after epoch 64: 0.050300, 0.055400
+Train/val error after epoch 65: 0.050540, 0.054800
+Train/val error after epoch 66: 0.049320, 0.054100
+Train/val error after epoch 67: 0.049060, 0.054200
+Train/val error after epoch 68: 0.049280, 0.053400
+Train/val error after epoch 69: 0.048220, 0.053500
+Train/val error after epoch 70: 0.048180, 0.053400
+Train/val error after epoch 71: 0.047320, 0.053000
+Train/val error after epoch 72: 0.047400, 0.051800
+Train/val error after epoch 73: 0.047500, 0.053300
+Train/val error after epoch 74: 0.045700, 0.052600
+Train/val error after epoch 75: 0.045480, 0.051800
+Train/val error after epoch 76: 0.045220, 0.050700
+Train/val error after epoch 77: 0.044740, 0.050900
+Train/val error after epoch 78: 0.044260, 0.050100
+Train/val error after epoch 79: 0.043960, 0.050800
+Train/val error after epoch 80: 0.044180, 0.049600
+Train/val error after epoch 81: 0.043420, 0.049200
+Train/val error after epoch 82: 0.043120, 0.049700
+Train/val error after epoch 83: 0.043060, 0.049500
+Train/val error after epoch 84: 0.042340, 0.047700
+Train/val error after epoch 85: 0.042120, 0.047800
+Train/val error after epoch 86: 0.040940, 0.048200
+Train/val error after epoch 87: 0.040960, 0.047900
+Train/val error after epoch 88: 0.040720, 0.047800
+Train/val error after epoch 89: 0.040600, 0.046300
+Train/val error after epoch 90: 0.040180, 0.046100
+Train/val error after epoch 91: 0.039560, 0.046600
+Train/val error after epoch 92: 0.038900, 0.045300
+Train/val error after epoch 93: 0.039180, 0.045500
+Train/val error after epoch 94: 0.039260, 0.044300
+Train/val error after epoch 95: 0.038600, 0.045100
+Train/val error after epoch 96: 0.037880, 0.044100
+Train/val error after epoch 97: 0.037020, 0.043300
+Train/val error after epoch 98: 0.037880, 0.044300
+Train/val error after epoch 99: 0.036580, 0.044000
+Train/val error after epoch 100: 0.036860, 0.043200
+Train/val error after epoch 101: 0.036600, 0.042600
+Train/val error after epoch 102: 0.036100, 0.042700
+Train/val error after epoch 103: 0.035680, 0.042700
+Train/val error after epoch 104: 0.035460, 0.042400
+Train/val error after epoch 105: 0.034940, 0.041500
+Train/val error after epoch 106: 0.035060, 0.041900
+Train/val error after epoch 107: 0.034680, 0.042400
+Train/val error after epoch 108: 0.033920, 0.041600
+Train/val error after epoch 109: 0.034740, 0.042000
+Train/val error after epoch 110: 0.033380, 0.040600
+Train/val error after epoch 111: 0.033900, 0.041300
+Train/val error after epoch 112: 0.032860, 0.041300
+Train/val error after epoch 113: 0.033060, 0.040500
+Train/val error after epoch 114: 0.032540, 0.039700
+Train/val error after epoch 115: 0.032680, 0.039700
+Train/val error after epoch 116: 0.032260, 0.039400
+Train/val error after epoch 117: 0.031860, 0.040300
+Train/val error after epoch 118: 0.031880, 0.039900
+Train/val error after epoch 119: 0.031400, 0.038700
+Train/val error after epoch 120: 0.031440, 0.039200
+Train/val error after epoch 121: 0.030780, 0.038800
+Train/val error after epoch 122: 0.030960, 0.037900
+Train/val error after epoch 123: 0.030780, 0.038500
+Train/val error after epoch 124: 0.030380, 0.038600
+Train/val error after epoch 125: 0.030020, 0.038400
+Train/val error after epoch 126: 0.030040, 0.037700
+Train/val error after epoch 127: 0.029700, 0.037900
+Train/val error after epoch 128: 0.029200, 0.037800
+Train/val error after epoch 129: 0.029040, 0.037400
+Train/val error after epoch 130: 0.028940, 0.037500
+Train/val error after epoch 131: 0.028920, 0.037600
+Train/val error after epoch 132: 0.028820, 0.038700
+Train/val error after epoch 133: 0.028060, 0.036900
+Train/val error after epoch 134: 0.028320, 0.037600
+Train/val error after epoch 135: 0.027880, 0.036400
+Train/val error after epoch 136: 0.028040, 0.036600
+Train/val error after epoch 137: 0.027340, 0.035700
+Train/val error after epoch 138: 0.027440, 0.036200
+Train/val error after epoch 139: 0.027620, 0.036400
+Train/val error after epoch 140: 0.027360, 0.036200
+Train/val error after epoch 141: 0.027480, 0.036100
+Train/val error after epoch 142: 0.026680, 0.035500
+Train/val error after epoch 143: 0.026900, 0.035500
+Train/val error after epoch 144: 0.026600, 0.035000
+Train/val error after epoch 145: 0.026060, 0.035000
+Train/val error after epoch 146: 0.025440, 0.034500
+Train/val error after epoch 147: 0.026120, 0.035100
+Train/val error after epoch 148: 0.025720, 0.032900
+Train/val error after epoch 149: 0.025860, 0.034300
+Train/val error after epoch 150: 0.025200, 0.034900
+Train/val error after epoch 151: 0.024860, 0.033800
+Train/val error after epoch 152: 0.025020, 0.034200
+Train/val error after epoch 153: 0.024960, 0.034100
+Train/val error after epoch 154: 0.024460, 0.034400
+Train/val error after epoch 155: 0.024340, 0.034100
+Train/val error after epoch 156: 0.024380, 0.034200
+Train/val error after epoch 157: 0.023840, 0.033300
+Train/val error after epoch 158: 0.023820, 0.033500
+Train/val error after epoch 159: 0.023760, 0.032600
+Train/val error after epoch 160: 0.023900, 0.033800
+Train/val error after epoch 161: 0.022980, 0.032300
+Train/val error after epoch 162: 0.023260, 0.033300
+Train/val error after epoch 163: 0.023300, 0.033000
+Train/val error after epoch 164: 0.023040, 0.031900
+Train/val error after epoch 165: 0.022900, 0.031700
+Train/val error after epoch 166: 0.022480, 0.032200
+Train/val error after epoch 167: 0.022280, 0.032700
+Train/val error after epoch 168: 0.022580, 0.031500
+Train/val error after epoch 169: 0.022040, 0.032500
+Train/val error after epoch 170: 0.022140, 0.032100
+Train/val error after epoch 171: 0.021840, 0.032300
+Train/val error after epoch 172: 0.021980, 0.032100
+Train/val error after epoch 173: 0.021700, 0.032000
+Train/val error after epoch 174: 0.021620, 0.031800
+Train/val error after epoch 175: 0.021740, 0.031200
+Train/val error after epoch 176: 0.020880, 0.030300
+Train/val error after epoch 177: 0.020880, 0.031400
+Train/val error after epoch 178: 0.020860, 0.031900
+Train/val error after epoch 179: 0.020360, 0.031300
+Train/val error after epoch 180: 0.020720, 0.031100
+Train/val error after epoch 181: 0.020380, 0.030600
+Train/val error after epoch 182: 0.020800, 0.030000
+Train/val error after epoch 183: 0.020480, 0.030200
+Train/val error after epoch 184: 0.020240, 0.031300
+Train/val error after epoch 185: 0.020220, 0.030000
+Train/val error after epoch 186: 0.019780, 0.030500
+Train/val error after epoch 187: 0.020000, 0.029300
+Train/val error after epoch 188: 0.019400, 0.029100
+Train/val error after epoch 189: 0.019540, 0.030000
+Train/val error after epoch 190: 0.019840, 0.030400
+Train/val error after epoch 191: 0.019140, 0.029600
+Train/val error after epoch 192: 0.018960, 0.028500
+Train/val error after epoch 193: 0.018520, 0.029400
+Train/val error after epoch 194: 0.018780, 0.029400
+Train/val error after epoch 195: 0.018540, 0.029100
+Train/val error after epoch 196: 0.018660, 0.029900
+Train/val error after epoch 197: 0.018300, 0.029200
+Train/val error after epoch 198: 0.018740, 0.029700
+Train/val error after epoch 199: 0.018380, 0.028100
+Train/val error after epoch 200: 0.018260, 0.028700
+Train/val error after epoch 201: 0.017740, 0.029100
+Train/val error after epoch 202: 0.017940, 0.028900
+Train/val error after epoch 203: 0.017800, 0.028800
+Train/val error after epoch 204: 0.017640, 0.028800
+Train/val error after epoch 205: 0.017720, 0.029500
+Train/val error after epoch 206: 0.017580, 0.028400
+Train/val error after epoch 207: 0.017360, 0.028900
+Train/val error after epoch 208: 0.018000, 0.029100
+Train/val error after epoch 209: 0.017000, 0.027800
+Train/val error after epoch 210: 0.016880, 0.027900
+Train/val error after epoch 211: 0.016780, 0.027700
+Train/val error after epoch 212: 0.017340, 0.027900
+Train/val error after epoch 213: 0.017080, 0.028300
+Train/val error after epoch 214: 0.016680, 0.027600
+Train/val error after epoch 215: 0.016440, 0.026800
+Train/val error after epoch 216: 0.016240, 0.026700
+Train/val error after epoch 217: 0.016560, 0.027300
+Train/val error after epoch 218: 0.016320, 0.027700
+Train/val error after epoch 219: 0.016620, 0.027200
+Train/val error after epoch 220: 0.016260, 0.026800
+Train/val error after epoch 221: 0.015960, 0.028500
+Train/val error after epoch 222: 0.016020, 0.027100
+Train/val error after epoch 223: 0.015960, 0.026700
+Train/val error after epoch 224: 0.016020, 0.026700
+Train/val error after epoch 225: 0.015340, 0.027300
+Train/val error after epoch 226: 0.015240, 0.026400
+Train/val error after epoch 227: 0.015620, 0.026800
+Train/val error after epoch 228: 0.015860, 0.027100
+Train/val error after epoch 229: 0.015160, 0.026600
+Train/val error after epoch 230: 0.015640, 0.025800
+Train/val error after epoch 231: 0.014920, 0.026700
+Train/val error after epoch 232: 0.015140, 0.026200
+Train/val error after epoch 233: 0.014700, 0.025800
+Train/val error after epoch 234: 0.014760, 0.026600
+Train/val error after epoch 235: 0.014560, 0.025900
+Train/val error after epoch 236: 0.014540, 0.026800
+Train/val error after epoch 237: 0.014840, 0.025700
+Train/val error after epoch 238: 0.014380, 0.026300
+Train/val error after epoch 239: 0.014360, 0.025700
+Train/val error after epoch 240: 0.014220, 0.026000
+Train/val error after epoch 241: 0.014020, 0.025000
+Train/val error after epoch 242: 0.013940, 0.025400
+Train/val error after epoch 243: 0.014220, 0.025100
+Train/val error after epoch 244: 0.013780, 0.025700
+Train/val error after epoch 245: 0.013740, 0.026000
+Train/val error after epoch 246: 0.013540, 0.024900
+Train/val error after epoch 247: 0.013620, 0.024900
+Train/val error after epoch 248: 0.013560, 0.025000
+Train/val error after epoch 249: 0.013320, 0.025500
+Train/val error after epoch 250: 0.013640, 0.025500
+Train/val error after epoch 251: 0.013540, 0.025100
+Train/val error after epoch 252: 0.013400, 0.025900
+Train/val error after epoch 253: 0.013000, 0.024700
+Train/val error after epoch 254: 0.013320, 0.025400
+Train/val error after epoch 255: 0.013140, 0.025300
+Train/val error after epoch 256: 0.013140, 0.025600
+Train/val error after epoch 257: 0.012520, 0.025100
+Train/val error after epoch 258: 0.012980, 0.025100
+Train/val error after epoch 259: 0.012800, 0.025500
+Train/val error after epoch 260: 0.012580, 0.024900
+Train/val error after epoch 261: 0.012720, 0.025400
+Train/val error after epoch 262: 0.012220, 0.024700
+Train/val error after epoch 263: 0.012220, 0.024900
+Train/val error after epoch 264: 0.012400, 0.024200
+Train/val error after epoch 265: 0.012460, 0.025200
+Train/val error after epoch 266: 0.012100, 0.025000
+Train/val error after epoch 267: 0.011820, 0.024900
+Train/val error after epoch 268: 0.011880, 0.025400
+Train/val error after epoch 269: 0.012140, 0.024500
+Train/val error after epoch 270: 0.011920, 0.025600
+Train/val error after epoch 271: 0.012160, 0.025200
+Train/val error after epoch 272: 0.012260, 0.024900
+Train/val error after epoch 273: 0.012140, 0.025000
+Train/val error after epoch 274: 0.011600, 0.024600
+Train/val error after epoch 275: 0.011420, 0.024500
+Train/val error after epoch 276: 0.011580, 0.023800
+Train/val error after epoch 277: 0.011480, 0.024500
+Train/val error after epoch 278: 0.011120, 0.024500
+Train/val error after epoch 279: 0.011520, 0.023600
+Train/val error after epoch 280: 0.011060, 0.024300
+Train/val error after epoch 281: 0.011020, 0.024000
+Train/val error after epoch 282: 0.011200, 0.024100
+Train/val error after epoch 283: 0.011120, 0.024400
+Train/val error after epoch 284: 0.011100, 0.024300
+Train/val error after epoch 285: 0.010840, 0.024500
+Train/val error after epoch 286: 0.010920, 0.023900
+Train/val error after epoch 287: 0.010680, 0.024000
+Train/val error after epoch 288: 0.010880, 0.023800
+Train/val error after epoch 289: 0.010700, 0.023800
+Train/val error after epoch 290: 0.010500, 0.024100
+Train/val error after epoch 291: 0.010820, 0.023700
+Train/val error after epoch 292: 0.010380, 0.024000
+Train/val error after epoch 293: 0.010380, 0.023700
+Train/val error after epoch 294: 0.010240, 0.023600
+Train/val error after epoch 295: 0.010240, 0.023700
+Train/val error after epoch 296: 0.010280, 0.023700
+Train/val error after epoch 297: 0.010200, 0.023800
+Train/val error after epoch 298: 0.009980, 0.023200
+Train/val error after epoch 299: 0.010240, 0.023400
+Train/val error after epoch 300: 0.010260, 0.023100
+Train/val error after epoch 301: 0.009920, 0.022600
+Train/val error after epoch 302: 0.009800, 0.023800
+Train/val error after epoch 303: 0.009660, 0.023600
+Train/val error after epoch 304: 0.009860, 0.023600
+Train/val error after epoch 305: 0.009700, 0.023100
+Train/val error after epoch 306: 0.009660, 0.024000
+Train/val error after epoch 307: 0.009580, 0.023600
+Train/val error after epoch 308: 0.009620, 0.022800
+Train/val error after epoch 309: 0.009680, 0.024400
+Train/val error after epoch 310: 0.009340, 0.023200
+Train/val error after epoch 311: 0.009280, 0.022800
+Train/val error after epoch 312: 0.009380, 0.023700
+Train/val error after epoch 313: 0.009340, 0.022600
+Train/val error after epoch 314: 0.009240, 0.023200
+Train/val error after epoch 315: 0.009380, 0.022800
+Train/val error after epoch 316: 0.009160, 0.023100
+Train/val error after epoch 317: 0.009040, 0.023000
+Train/val error after epoch 318: 0.009180, 0.022600
+Train/val error after epoch 319: 0.008800, 0.023200
+Train/val error after epoch 320: 0.008880, 0.023100
+Train/val error after epoch 321: 0.008840, 0.022900
+Train/val error after epoch 322: 0.008780, 0.023600
+Train/val error after epoch 323: 0.009020, 0.022200
+Train/val error after epoch 324: 0.008900, 0.023300
+Train/val error after epoch 325: 0.008640, 0.022700
+Train/val error after epoch 326: 0.008540, 0.022900
+Train/val error after epoch 327: 0.008520, 0.023500
+Train/val error after epoch 328: 0.008660, 0.022600
+Train/val error after epoch 329: 0.008700, 0.023500
+Train/val error after epoch 330: 0.008420, 0.022400
+Train/val error after epoch 331: 0.008320, 0.022400
+Train/val error after epoch 332: 0.008600, 0.023000
+Train/val error after epoch 333: 0.008220, 0.022800
+Train/val error after epoch 334: 0.008120, 0.021900
+Train/val error after epoch 335: 0.008340, 0.022600
+Train/val error after epoch 336: 0.008080, 0.022400
+Train/val error after epoch 337: 0.008160, 0.022500
+Train/val error after epoch 338: 0.007900, 0.022500
+Train/val error after epoch 339: 0.008160, 0.022300
+Train/val error after epoch 340: 0.008080, 0.022400
+Train/val error after epoch 341: 0.008000, 0.021800
+Train/val error after epoch 342: 0.007940, 0.022100
+Train/val error after epoch 343: 0.007860, 0.022000
+Train/val error after epoch 344: 0.007580, 0.022400
+Train/val error after epoch 345: 0.007840, 0.022200
+Train/val error after epoch 346: 0.007640, 0.022000
+Train/val error after epoch 347: 0.007800, 0.022900
+Train/val error after epoch 348: 0.007660, 0.022300
+Train/val error after epoch 349: 0.007460, 0.022200
+Train/val error after epoch 350: 0.007660, 0.022000
+Train/val error after epoch 351: 0.007440, 0.021900
+Train/val error after epoch 352: 0.007340, 0.021600
+Train/val error after epoch 353: 0.007400, 0.022100
+Train/val error after epoch 354: 0.007080, 0.021900
+Train/val error after epoch 355: 0.007360, 0.021700
+Train/val error after epoch 356: 0.007220, 0.022000
+Train/val error after epoch 357: 0.007020, 0.021600
+Train/val error after epoch 358: 0.007140, 0.021600
+Train/val error after epoch 359: 0.006800, 0.022500
+Train/val error after epoch 360: 0.006900, 0.021300
+Train/val error after epoch 361: 0.007000, 0.021800
+Train/val error after epoch 362: 0.006800, 0.021400
+Train/val error after epoch 363: 0.007160, 0.021500
+Train/val error after epoch 364: 0.006820, 0.021500
+Train/val error after epoch 365: 0.006780, 0.022000
+Train/val error after epoch 366: 0.006720, 0.021800
+Train/val error after epoch 367: 0.006680, 0.021600
+Train/val error after epoch 368: 0.006720, 0.021700
+Train/val error after epoch 369: 0.007280, 0.022200
+Train/val error after epoch 370: 0.006640, 0.021500
+Train/val error after epoch 371: 0.006560, 0.022100
+Train/val error after epoch 372: 0.006440, 0.021700
+Train/val error after epoch 373: 0.006600, 0.021300
+Train/val error after epoch 374: 0.006400, 0.021600
+Train/val error after epoch 375: 0.006520, 0.022100
+Train/val error after epoch 376: 0.006760, 0.021900
+Train/val error after epoch 377: 0.006380, 0.022100
+Train/val error after epoch 378: 0.006420, 0.021900
+Train/val error after epoch 379: 0.006380, 0.021500
+Train/val error after epoch 380: 0.006200, 0.021500
+Train/val error after epoch 381: 0.006080, 0.020900
+Train/val error after epoch 382: 0.006000, 0.021700
+Train/val error after epoch 383: 0.006080, 0.021000
+Train/val error after epoch 384: 0.006140, 0.021200
+Train/val error after epoch 385: 0.006180, 0.021600
+Train/val error after epoch 386: 0.005860, 0.021300
+Train/val error after epoch 387: 0.005800, 0.021600
+Train/val error after epoch 388: 0.005960, 0.021000
+Train/val error after epoch 389: 0.005760, 0.021800
+Train/val error after epoch 390: 0.005640, 0.021200
+Train/val error after epoch 391: 0.005600, 0.021000
+Train/val error after epoch 392: 0.006020, 0.020900
+Train/val error after epoch 393: 0.005520, 0.021200
+Train/val error after epoch 394: 0.005680, 0.021200
+Train/val error after epoch 395: 0.005800, 0.020900
+Train/val error after epoch 396: 0.005460, 0.021200
+Train/val error after epoch 397: 0.005520, 0.021000
+Train/val error after epoch 398: 0.005560, 0.021000
+Train/val error after epoch 399: 0.005700, 0.021300
+Train/val error after epoch 400: 0.005440, 0.020900
+Train/val error after epoch 401: 0.005740, 0.021200
+Train/val error after epoch 402: 0.005380, 0.021000
+Train/val error after epoch 403: 0.005160, 0.020500
+Train/val error after epoch 404: 0.005360, 0.020900
+Train/val error after epoch 405: 0.005320, 0.020000
+Train/val error after epoch 406: 0.005360, 0.020900
+Train/val error after epoch 407: 0.005320, 0.020700
+Train/val error after epoch 408: 0.005180, 0.020900
+Train/val error after epoch 409: 0.005020, 0.020700
+Train/val error after epoch 410: 0.005020, 0.021400
+Train/val error after epoch 411: 0.005140, 0.021100
+Train/val error after epoch 412: 0.005120, 0.021000
+Train/val error after epoch 413: 0.005220, 0.021000
+Train/val error after epoch 414: 0.004940, 0.020400
+Train/val error after epoch 415: 0.005040, 0.020600
+Train/val error after epoch 416: 0.004980, 0.020600
+Train/val error after epoch 417: 0.004820, 0.020100
+Train/val error after epoch 418: 0.004760, 0.020600
+Train/val error after epoch 419: 0.004780, 0.020800
+Train/val error after epoch 420: 0.004640, 0.021000
+Train/val error after epoch 421: 0.005080, 0.021100
+Train/val error after epoch 422: 0.005060, 0.020700
+Train/val error after epoch 423: 0.004780, 0.020800
+Train/val error after epoch 424: 0.004740, 0.020900
+Train/val error after epoch 425: 0.004720, 0.020800
+Train/val error after epoch 426: 0.004740, 0.021200
+Train/val error after epoch 427: 0.004800, 0.020300
+Train/val error after epoch 428: 0.004520, 0.020700
+Train/val error after epoch 429: 0.004500, 0.020800
+Train/val error after epoch 430: 0.004500, 0.021300
+Train/val error after epoch 431: 0.004500, 0.021000
+Train/val error after epoch 432: 0.004360, 0.020300
+Train/val error after epoch 433: 0.004440, 0.020500
+Train/val error after epoch 434: 0.004480, 0.021000
+Train/val error after epoch 435: 0.004440, 0.020200
+Train/val error after epoch 436: 0.004380, 0.020300
+Train/val error after epoch 437: 0.004260, 0.020700
+Train/val error after epoch 438: 0.004280, 0.020400
+Train/val error after epoch 439: 0.004360, 0.020800
+Train/val error after epoch 440: 0.004320, 0.020800
+Train/val error after epoch 441: 0.004140, 0.020800
+Train/val error after epoch 442: 0.004840, 0.021300
+Train/val error after epoch 443: 0.004220, 0.020600
+Train/val error after epoch 444: 0.004060, 0.020400
+Train/val error after epoch 445: 0.004180, 0.020000
+Train/val error after epoch 446: 0.004160, 0.020700
+Train/val error after epoch 447: 0.004240, 0.020300
+Train/val error after epoch 448: 0.003920, 0.020500
+Train/val error after epoch 449: 0.004020, 0.020300
+Train/val error after epoch 450: 0.004080, 0.020500
+Train/val error after epoch 451: 0.003900, 0.020800
+Train/val error after epoch 452: 0.003900, 0.020300
+Train/val error after epoch 453: 0.003960, 0.020400
+Train/val error after epoch 454: 0.003920, 0.020100
+Train/val error after epoch 455: 0.003780, 0.020300
+Train/val error after epoch 456: 0.003980, 0.020300
+Train/val error after epoch 457: 0.003720, 0.020100
+Train/val error after epoch 458: 0.003820, 0.020000
+Train/val error after epoch 459: 0.003740, 0.020500
+Train/val error after epoch 460: 0.003440, 0.020100
+Train/val error after epoch 461: 0.003660, 0.020600
+Train/val error after epoch 462: 0.003600, 0.019600
+Train/val error after epoch 463: 0.003600, 0.019600
+Train/val error after epoch 464: 0.003860, 0.020600
+Train/val error after epoch 465: 0.003620, 0.020300
+Train/val error after epoch 466: 0.003760, 0.020400
+Train/val error after epoch 467: 0.003440, 0.020000
+Train/val error after epoch 468: 0.003480, 0.020000
+Train/val error after epoch 469: 0.003400, 0.020100
+Train/val error after epoch 470: 0.003520, 0.020300
+Train/val error after epoch 471: 0.003300, 0.020500
+Train/val error after epoch 472: 0.003380, 0.020000
+Train/val error after epoch 473: 0.003420, 0.019500
+Train/val error after epoch 474: 0.003440, 0.020300
+Train/val error after epoch 475: 0.003360, 0.020400
+Train/val error after epoch 476: 0.003340, 0.020500
+Train/val error after epoch 477: 0.003300, 0.019600
+Train/val error after epoch 478: 0.003140, 0.020100
+Train/val error after epoch 479: 0.003060, 0.020000
+Train/val error after epoch 480: 0.003420, 0.019800
+Train/val error after epoch 481: 0.003200, 0.020100
+Train/val error after epoch 482: 0.003260, 0.020000
+Train/val error after epoch 483: 0.003220, 0.019600
+Train/val error after epoch 484: 0.003300, 0.019600
+Train/val error after epoch 485: 0.003000, 0.020000
+Train/val error after epoch 486: 0.003100, 0.020000
+Train/val error after epoch 487: 0.003180, 0.020800
+Train/val error after epoch 488: 0.003040, 0.019700
+Train/val error after epoch 489: 0.003000, 0.020300
+Train/val error after epoch 490: 0.003040, 0.019500
+Train/val error after epoch 491: 0.003000, 0.020000
+Train/val error after epoch 492: 0.002980, 0.019600
+Train/val error after epoch 493: 0.003000, 0.019800
+Train/val error after epoch 494: 0.002880, 0.019800
+Train/val error after epoch 495: 0.002880, 0.020000
+Train/val error after epoch 496: 0.002740, 0.019800
+Train/val error after epoch 497: 0.002840, 0.020000
+Train/val error after epoch 498: 0.002740, 0.019700
+Train/val error after epoch 499: 0.002820, 0.019600
+Train/val cost after epoch 499: 0.019390, 0.068646
+Train/val error after epoch 499: 0.002820, 0.019600
+7549.3610245
 </pre>
 </div>
 </div>
@@ -15734,7 +16076,7 @@ Train/val error after epoch 199: 0.018540, 0.028700
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[27]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[48]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metrics</span><span class="o">.</span><span class="n">plot_cost_curves</span><span class="p">()</span>
@@ -15759,7 +16101,7 @@ Train/val error after epoch 199: 0.018540, 0.028700
 
 
 <div class="jp-RenderedImage jp-OutputArea-output ">
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYoAAAEGCAYAAAB7DNKzAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjMuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8vihELAAAACXBIWXMAAAsTAAALEwEAmpwYAAAnIElEQVR4nO3deXiV5Z3/8fdNEkhIQogJYCBAEBAUkLAKgooroEVcqGDd29Hq1I7amXHr/GynY1s7nTpq1Tq2Qzf3Ebcq0ioCalkElE0QAgoS1rAnkISQ3L8/vueQEMkx4Emec04+r+t6Lk6ec3L45iHkk3t9nPceERGRhrQKugAREYltCgoREYlIQSEiIhEpKEREJCIFhYiIRJQcdAFNITc31xcUFARdhohI3Fi8ePEO732Hoz2XkEFRUFDAokWLgi5DRCRuOOc2NPScup5ERCQiBYWIiESkoBARkYgScoxCRORYVVVVUVxcTEVFRdClNKnU1FTy8/NJSUlp9OcoKEREgOLiYjIzMykoKMA5F3Q5TcJ7z86dOykuLqZHjx6N/jx1PYmIABUVFeTk5CRsSAA458jJyTnmVpOCQkQkJJFDIux4vsaEDIqKvZVBlyAikjASMiiqSvYEXYKIyDHZs2cPTzzxxDF/3kUXXcSePXuiX1AdCRkUIiLxpqGgqK6ujvh506dPp3379k1UldGsJxGRGHDPPfewbt06CgsLSUlJISMjg7y8PJYsWcLKlSu59NJL2bhxIxUVFdx+++3cfPPNQO2WRWVlZYwfP57Ro0czd+5cunTpwmuvvUZaWtrXrk1BISJSzx13wJIl0X3PwkJ4+OGGn3/wwQdZsWIFS5YsYfbs2Vx88cWsWLHi8DTWqVOncsIJJ1BeXs6wYcO44ooryMnJOeI9ioqKeO655/jtb3/LlVdeybRp07jmmmu+du0KChGRGDR8+PAj1jo8+uijvPLKKwBs3LiRoqKiLwVFjx49KCwsBGDIkCGsX78+KrUoKERE6on0m39zSU9PP/x49uzZvPPOO8ybN4+2bdsyZsyYo66FaNOmzeHHSUlJlJeXR6UWDWaLiMSAzMxMSktLj/rc3r17yc7Opm3btnz66afMnz+/WWtTi0JEJAbk5OQwatQo+vfvT1paGp06dTr83Lhx43jyySc57bTT6NOnDyNGjGjW2pz3vln/wubQp31Xv3rPxqDLEJE4smrVKk455ZSgy2gWR/tanXOLvfdDj/Z6dT2JiEhECgoREYlIQSEiIhElVFA45yY45546dKgq6FJERBJGQgWF9/4v3vubk5Mbf+cmERGJLKGCQkREok9BISIShzIyMprt71JQiIhIRFqZLSISA+6++266d+/OP/7jPwLw4x//GOcc7733Hrt376aqqooHHniAiRMnNnttCgoRkfoC2Gd8ypQp3HHHHYeD4sUXX2TGjBnceeedtGvXjh07djBixAguueSSZr+3t4JCRCQGDBo0iO3bt7N582ZKSkrIzs4mLy+PO++8k/fee49WrVqxadMmtm3bxoknntistSkoRETqC2if8UmTJvHSSy+xdetWpkyZwjPPPENJSQmLFy8mJSWFgoKCo24v3tQUFCIiMWLKlCncdNNN7Nixgzlz5vDiiy/SsWNHUlJSmDVrFhs2bAikLgWFiEiM6NevH6WlpXTp0oW8vDyuvvpqJkyYwNChQyksLKRv376B1KWgEBGJIcuXLz/8ODc3l3nz5h31dWVlZc1VktZRiIhIZAoKERGJSEEhIhKSiHf8rO94vkYFhYgIkJqays6dOxM6LLz37Ny5k9TU1GP6PA1mi4gA+fn5FBcXU1JSEnQpTSo1NZX8/Pxj+hwFhYgIkJKSQo8ePYIuIyap60lERCJSUIiISEQKChERiUhBISIiESkoREQkIgWFiIhEpKAQEZGIFBQiIhKRgkJERCJSUIiISEQKChERiUhBISIiESkoREQkIgWFiIhEpKAQEZGIFBQiIhJRzN+4yDmXDjwBHARme++fCbgkEZEWJZAWhXNuqnNuu3NuRb3z45xzq51za51z94ROXw685L2/Cbik2YsVEWnhgup6+gMwru4J51wS8DgwHjgVuMo5dyqQD2wMvay6GWsUERECCgrv/XvArnqnhwNrvfefee8PAs8DE4FiLCxAYyoiIs0uln7wdqG25QAWEF2Al4ErnHO/Af7S0Cc75252zi1yzi06ePBg01YqItKCxNJgtjvKOe+93w/c+FWf7L1/CngKoE/7rj7KtYmItFix1KIoBrrW+Tgf2BxQLSIiEhJLQbEQ6O2c6+Gcaw1MAV4PuCYRkRYvqOmxzwHzgD7OuWLn3He894eA24C/AquAF733nwRRn4iI1ApkjMJ7f1UD56cD05u5HBERiSCWup6+Nufc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
+<img src="data:image/png;base64,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
 "
 >
 </div>
@@ -15773,7 +16115,7 @@ Train/val error after epoch 199: 0.018540, 0.028700
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[28]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[49]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metrics</span><span class="o">.</span><span class="n">plot_error_curves</span><span class="p">(</span><span class="n">yrange</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">logscale</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -15799,7 +16141,7 @@ Train/val error after epoch 199: 0.018540, 0.028700
 
 
 <div class="jp-RenderedImage jp-OutputArea-output ">
-<img src="data:image/png;base64,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
+<img src="data:image/png;base64,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Ry2k8rN7t80f9dlnNoFgccaPtylBHnnERn0/9pgllXHjLGlMnGi9pHbutG5hW7dat9vGjfNfY88eWLvWMu+f/5yfZJyLAE8QrkJceaXNEtujh/VAPf98m1b8pJNspu8qT9W6x/761zYopFMn6x312mvWGPP88wWvT0uzhPLyyyW/9mefWW+riRNt4fBVq+x427ZWMjnlFB8B7iLCE4SrENnZ9n3ZogX86U/wxBN2vF0764VavXpUw4u8006zqqrmzW1a87z5oc46y77wv/3W9i+80KqvFiwo/WsPGWI9AxYtshuaNwpc1cZ+pKeX60dx8aO4BIGqxsSjc+fO6iqPfftUR45UvesuVVCtUUP18sujHVWEbd+uum2bbWdlqb7wgur776vm5Nixp59Wvemmgs+ZMkX1gQfsJoHqNdeo/utftt27t+rEiarduuWfB9XGjVX791ft1y//2D//aTf9++9VV62yWEqya5fqli2qNWuqvv12ed4JV4UA07WI79Wof7GX18MTROU1Zoxqmzb229arl+qxx6r+73/RjqqSmTnTbszy5bb/00/5X/K5uZYQQpNE3qNz54KJI287OVn10UdV777bMvOPP9prPf+86n33qX78sV3Ttatd36KF6quvqm7evH9sOTmq8+fn7+fmRvJOuArmCcJF3a5dqr//vWrbtvnfX0OGqM6YEe3IqogVK1TPOsu+4MFu3rff2rnvvrP9Hj1UmzULn0hA9eabiz6X9+jaVXXBAktUWVmqY8eqDhxo5wYNUv3yS9XUVNs/6aTo3Q9XbjxBuEpl8OD876Pq1a0aStX/MC21xYuLP5+ba9VNs2fbl/z99xdMAqH/AAf7uOIKqwJbuDC/Ki2cd95Rvf328r0PrlwUlyC8kdpVuHXrrGPPRRfZIOa33rIOOj17wnvv2QBmV45UrQfB0Udbf+TVq/O77t50k02FvnatLcqUJzPTehYcfTR07AijR5f8PrVqWXfdww+3yQ4ffNC6s02bBnfeade89JJN6FV4yP2rr1pX4HDvs2GDjUupU2f/z1Vlhu5XXt5I7SqtPXtUL7ig4B+lXbqovvmm6pIlqnv3RjvCGLJ5s+pHHxV9/uefVcePt+3cXGunyMqy/ZQU+8dZs8bqC997T/XMM1WPP75gI/rZZ1ujd3Gljp49VU85RfXII1XPP1/16qvzz736qmp2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
 "
 >
 </div>
@@ -15813,7 +16155,7 @@ Train/val error after epoch 199: 0.018540, 0.028700
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Train/val error after epoch 199: 0.018540, 0.028700
+<pre>Train/val error after epoch 499: 0.002820, 0.019600
 </pre>
 </div>
 </div>
@@ -15840,12 +16182,15 @@ Train/val error after epoch 199: 0.018540, 0.028700
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[29]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[51]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### START YOUR CODE ### </span>
+
 <span class="n">ypred</span> <span class="o">=</span> <span class="n">mlp</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">xtest</span><span class="p">)</span>
+
 <span class="n">error</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">ypred</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">!=</span> <span class="n">ytest</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">ypred</span><span class="o">.</span><span class="n">size</span>
+
 <span class="c1">### END YOUR CODE ### </span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test error: &quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
 </pre></div>
@@ -15867,7 +16212,7 @@ Train/val error after epoch 199: 0.018540, 0.028700
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Test error:  0.01485
+<pre>Test error:  0.01961
 </pre>
 </div>
 </div>
@@ -15887,20 +16232,6 @@ Train/val error after epoch 199: 0.018540, 0.028700
 
 </div>
 
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-     </div>
-</div>
-</div>
 </div>
 
 </div>
