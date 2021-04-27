@@ -1,59 +1,0 @@
-
-QõL
-	/host:CPUõèO
-
-tf_ComputeèOô¯
-
-tf_Computeô¯
-àFàF"QõàFbuildH å³PÀ·ŸøüZ
-tracing_count1Z!
-tf_function_calltraced-nonXla"CõàFExecutorState::ProcessH ïã¶PÀ¾©Z
-id-1Z
-iter_num0"MõàF:_send_gradients/truediv_grad/BroadcastGradientArgs_0:_SendH Ø…£¶P€Ôa"2õàFExecutorDoneCallbackHàüÏ©¶PÀØZ
-id-1"CõàFExecutorState::ProcessHÀ’´¥ËPàë‡
-Z
-id-1Z
-iter_num0"MõàF:_send_gradients/truediv_grad/BroadcastGradientArgs_1:_SendH€¡¯¬ËP€‰z"1õàFExecutorDoneCallbackH€è»®ËPÀ„=Z
-id-1"-õàFTFE_Py_ExecuteCancelableHÀºÏªÖPÀ¿Ó%"7õàF"EagerExecute: __inference_build_52HÀ•Ø¹ÖPÀßÙÀ%"<õàF'EagerLocalExecute: __inference_build_52HÀ´¡ºÖPà˜ş¿%"2õàFEagerCopyToDeviceAndAddCacheKeyH ûüºÖPà§"0õàFValidateInputTypeAndPlacementH€Ù×®úP Â"FõàFEagerKernelExecuteHÀÇÅ¯úP€ô–ÊZ
-	step_name0Z
-group_id0"JõàFFunctionRunHÀºğ°úPàŒø^Z
-id-2096241614071510543Z
-group_id0"RõàFbuildH ¢ñ§õPàÀè¸ëZ
-tracing_count1Z!
-tf_function_calltraced-nonXla"CõàFExecutorState::ProcessHà•Ş÷ïP ¿‡Z
-id-1Z
-iter_num0"MõàF:_send_gradients/truediv_grad/BroadcastGradientArgs_0:_SendHÀ¾´ıïPàÆ["1õàFExecutorDoneCallbackHàóışïPàÜ*Z
-id-1"CõàFExecutorState::ProcessH «§Á„P †”
-Z
-id-1Z
-iter_num0"NõàF:_send_gradients/truediv_grad/BroadcastGradientArgs_1:_SendHÀ¬œÈ„Pà°Œ"1õàFExecutorDoneCallbackH ĞÓÊ„PÀ„=Z
-id-1"-õàFTFE_Py_ExecuteCancelableH€Óí´ÈP ´›€"8õàF#EagerExecute: __inference_build_100HÀë¦ÂÈPÀ›±ñ"=õàF(EagerLocalExecute: __inference_build_100H ıéÂÈP€âÛğ"2õàFEagerCopyToDeviceAndAddCacheKeyHÀ“êÃÈPÀš"0õàFValidateInputTypeAndPlacementH€‹À†ßPà§"FõàFEagerKernelExecuteH€”º‡ßPÀ¹È«Z
-	step_name1Z
-group_id1"JõàFFunctionRunHàùŞˆßP «ªDZ
-id-7199945655260365358Z
-group_id1"õàFtf.constantHÀîÉ±—PÀğª$"*õàFTFE_DeleteTensorHandleHÀ¶ÏÑ—Pà°Œ",õàFTFE_Py_FastPathExecute_CHàÔ¤—˜P Æ˜G")õàFTFE_DeleteTensorHandleH å§©˜PÀš")õàFTFE_DeleteTensorHandleHÀåØª˜P ",õàFEagerExecute: LogicalAndHà÷ı­˜P€¹İ."1õàFEagerLocalExecute: LogicalAndH üº®˜P §š."0õàFValidateInputTypeAndPlacementH ¨Î˜P€ê0"5õàFEagerKernelExecuteHàı•Ï˜P ÖšZ
-group_id1"`õàF
-LogicalAndHàŠÑ˜Pà—¦	Z"
-	long_nameLogicalAnd:LogicalAndZ
-group_id1Z
-is_eager1",õàFTFE_Py_FastPathExecute_CH æı¢šP€Ÿ³1"*õàFEagerExecute: IdentityHà”†°šPàÌó!"/õàFEagerLocalExecute: IdentityH€ÁÕ°šPàø‘!"0õàFValidateInputTypeAndPlacementHà¯©ËšPÀÏ$"5õàFEagerKernelExecuteH€Æ©ÌšPÀ±ŸZ
-group_id1"YõàFIdentityHà•ÿÍšPÀ¹UZ
-	long_nameIdentity:IdentityZ
-group_id1Z
-is_eager1",õàFTFE_Py_FastPathExecute_CHà¥ İšP Úõ
-"õàFtf.constantHÀ¯Ä›PàÏŠ"*õàFTFE_DeleteTensorHandleH€Å£Ù›PÀ·"õàFtf.constantH Ä¯œPÀöØ")õàFTFE_DeleteTensorHandleH …°œPÀ¹U"õàFtf.constantH Î×ÕœPàŸ‘")õàFTFE_DeleteTensorHandleH üıßœPà‘C",õàFTFE_Py_ExecuteCancelableHà‚øƒP ÿ‹E".õàFEagerExecute: WriteSummaryH ŸŒP€²ë8"3õàFEagerLocalExecute: WriteSummaryH€æçPàĞƒ8"0õàFValidateInputTypeAndPlacementH€±„¨P€ê0"5õàFEagerKernelExecuteHà¬ø¨P€ë©Z
-group_id1"fõàFWriteSummaryHÀĞ¯«P ‰àZ&
-	long_nameWriteSummary:WriteSummaryZ
-group_id1Z
-is_eager1"*õàFTFE_DeleteTensorHandleH€ÉËP –€")õàFTFE_DeleteTensorHandleHà˜æÌP ÷6")õàFTFE_DeleteTensorHandleH€ÅµÍPÀš"õàFtf.constantH ËÉ×P è")õàFTFE_DeleteTensorHandleHàğ×ãP ÷6"*õàFTFE_DeleteTensorHandleHàÁ¢ìPàå¤"*õàFTFE_DeleteTensorHandleH î¢îP€¾’"*õàFTFE_DeleteTensorHandleHàç’ûPÀ÷ç")õàFTFE_DeleteTensorHandleHÀÖ±ıP "eõô¯ExecutorState::ProcessHà¤¦”ûP Ñû	Z
-id-2096241614071510543Z
-iter_num0Z
-group_id0"Tõô¯ExecutorDoneCallbackH ò÷¡ûP€ã¾
-Z
-id-2096241614071510543Z
-group_id0"Tõô¯ExecutorDoneCallbackHàúŞßP Ù±Z
-id-7199945655260365358Z
-group_id1"dõèOExecutorState::ProcessHÀß¢ÓßP€ıèZ
-id-7199945655260365358Z
-iter_num0Z
-group_id1
